@@ -36,5 +36,3 @@ elseif(NF==25 | NF==31)
 end
 mean(table)
 mean(table2)
-
-

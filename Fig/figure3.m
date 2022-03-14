@@ -4,6 +4,8 @@
 
 close all;
 clc;
+addpath(genpath('./Results'));
+
 NF = 31;
 N = 256;
 fontsize = 14;

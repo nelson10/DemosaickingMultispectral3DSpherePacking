@@ -2,11 +2,10 @@
 % Post-doctorado Pontícia Universidad Católica de Valparaíso (PUCV)
 % Date 2 February 2022
 
+function [NF]=figure5(N,NF,mask,dist)
 %% Comparison 3D random and optimal spheres
-clear all;
-close all;
-NF = 9;
-N = 256;
+%NF = 9;
+%N = 256;
 set(groot, 'defaultFigureUnits', 'centimeters', 'defaultFigurePosition', [0 0 30.86 30.8]);
 
 if(NF ==5)
@@ -52,10 +51,7 @@ subplot(1,2,1)
 showSphere(G,radius,fontsize); title("MSFA"+num2str(NF)+" distance="+num2str(minimum), 'FontSize', fontsize)
 set(gca,'FontSize',fontsize)
 
-ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
-load(ti);
 G = mask(1:NF,1:NF);
-
 minimum = dist;
 
 radius = minimum/2;
@@ -67,3 +63,4 @@ set(gca,'FontSize',fontsize)
 %saveas(fig,'figure2','pdf') %gcf,
 orient(fig,'landscape')
 print(fig,'figure2.pdf','-dpdf')
+end
