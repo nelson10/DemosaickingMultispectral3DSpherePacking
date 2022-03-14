@@ -23,7 +23,7 @@ JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
 d = 15;
 table =zeros(d,4); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
 table2 =zeros(d,4); % PSNR, SSIM, RMSE, SAM of MSFA(5-16) or Random methods
-comparisonRGB = 0;
+comparisonRGB = 1; % Show Groundtruth and Reconstructions
 
 if (NF <= 31)
     d = 15; % Select the dataset (Numbers between 1 and 15)
