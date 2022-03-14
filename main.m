@@ -23,7 +23,7 @@ JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
 d = 15;
 table =zeros(d,4); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
 table2 =zeros(d,4); % PSNR, SSIM, RMSE, SAM of MSFA(5-16) or Random methods
-comparisonRGB = 1;
+comparisonRGB = 0;
 
 if (NF <= 31)
     d = 15; % Select the dataset (Numbers between 1 and 15)
@@ -64,15 +64,15 @@ if(NF<=16)
 elseif(NF > 16)
     %% Load SOTA Coded Aperture
     %text = "codes/design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
-    text = "design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF)+".mat";
+    text = "Pattern/design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF)+".mat";
     load(text)
 end
 
 %% Load Designed Coded Apertue
-ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
+ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
 
-for k=1:d % iterave over the datasets
+for k=4:4 % iterave over the datasets
     if(NF <= 31)
         alldataset = {'balloons_ms','beads_ms','cd_ms','chart','clay_ms','cloth_ms','egyptian_statue_ms','feathers_ms','flowers_ms','glass_tiles_ms','pompoms_ms','sponges_ms','stuffed_toys_ms','superballs_ms','thread_spools_ms'};
         dataset = alldataset{k};
