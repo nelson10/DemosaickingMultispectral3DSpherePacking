@@ -11,7 +11,7 @@ clc
 N = 256;
 NF = 16;
 mask = zeros(N,N,NF);
-ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
+ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
 G = mask;
 
