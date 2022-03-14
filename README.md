@@ -11,7 +11,7 @@ This repository aims to design the coded apertures for multispectral demosaickin
 This code was written using Matlab R2020b. It should be downloaded the RollingShutterCodedAperture repository
 1. Download this repository via git 
 ```
-git clone https://github.com/nelson10/RollingShutterCodedAperture.git
+git clone https://github.com/nelson10/DemosaickingMultispectral.git
 ```
 2. To run the code use the function main.m that performs the sensing, and the reconstruction using interpolation
 3. Or generateCodedAperture.m that computes the coded aperture using sphere packing approach.
