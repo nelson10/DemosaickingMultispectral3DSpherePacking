@@ -2,6 +2,8 @@
 % Post-doctorado Pontícia Universidad Católica de Valparaíso (PUCV)
 % Date 2 February 2022
 
+% Implements the methods of the paper: Demosaicking Multispectral Images Based on Sphere Packing Filter Design
+
 % Comparison of minimum distance
 % Solution using the Discrete Sphere Packing based on 3D N^2 Queens
 % Approach
@@ -15,10 +17,12 @@ addpath(genpath('./codes'));
 addpath(genpath('./RGB'));
 addpath(genpath('./src'));
 addpath(genpath('./Fig'));
+addpath(genpath('./Pattern'));
+addpath(genpath('./Results'));
 
 %% Parameters
 N = 256; % Spatial resolution
-NF = 16; % Number of bands put 8 or 16
+NF = 9; % Number of bands put 8 or 16
 JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
 d = 15;
 table =zeros(d,4); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
@@ -64,12 +68,12 @@ if(NF<=16)
 elseif(NF > 16)
     %% Load SOTA Coded Aperture
     %text = "codes/design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
-    text = "Pattern/design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF)+".mat";
+    text = "design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF)+".mat";
     load(text)
 end
 
 %% Load Designed Coded Apertue
-ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
+ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
 
 for k=1:d % iterave over the datasets
@@ -128,5 +132,5 @@ for k=1:d % iterave over the datasets
         end
     end
 end
-texto = "results_NF=" + num2str(NF)+"N="+num2str(N)+".mat";
+texto = "Results/results_NF=" + num2str(NF)+"N="+num2str(N)+".mat";
 save(texto,'table','table2')

@@ -19,7 +19,7 @@ addpath(genpath('./Results'));
 % Select 3 to compare spatial correlation
 % Select 4 to obtain upper bound
 % Select 5 to compare spheres packing: 
-figu = 5; 
+figu = 2; 
 
 if(figu == 1)
     figure1DistanceComparison();
@@ -30,7 +30,7 @@ elseif(figu == 3)
 elseif(figu == 4)
     figure4_simple();
 elseif(figu == 5)
-    NF = 16;
+    NF = 9;
     N = 256;
     texto = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
     load(texto);
