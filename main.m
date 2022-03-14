@@ -72,7 +72,7 @@ end
 ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
 
-for k=4:4 % iterave over the datasets
+for k=1:d % iterave over the datasets
     if(NF <= 31)
         alldataset = {'balloons_ms','beads_ms','cd_ms','chart','clay_ms','cloth_ms','egyptian_statue_ms','feathers_ms','flowers_ms','glass_tiles_ms','pompoms_ms','sponges_ms','stuffed_toys_ms','superballs_ms','thread_spools_ms'};
         dataset = alldataset{k};
