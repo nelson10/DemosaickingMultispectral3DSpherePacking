@@ -2,7 +2,7 @@
 % Post-doctorado Pontícia Universidad Católica de Valparaíso (PUCV)
 % Date 2 February 2022
 
-%% Compare MSFA Against Designed patterns
+%% Compare BTES Against Designed patterns
 close all;
 clc;
 NF = 31;
@@ -19,7 +19,7 @@ hold on;
 grid on;
 
 if(NF<=16 & NF>=5)
-    texto = "Designed Against MSFA ";
+    texto = "Designed Against BTES ";
 elseif(NF==25 | NF==31)
     texto = "Designed Against Random ";
 end
