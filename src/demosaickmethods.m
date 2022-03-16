@@ -75,9 +75,9 @@ elseif(code == 2 || code == 3 || code == 4)
     G = zeros(N,N);
     NF2 = floor(sqrt(NF));
     for k=1:NF
-        G = G + (k-1 == (mod(I-1,NF2) + NF2*(mod(J-1,NF2)))).*k;
+        G = G + (k-1 == (mod(J-1,NF2) + NF2*(mod(I-1,NF2)))).*k;
     end
-    imagesc(G==1)
+    %imagesc(G==1)
     %G=sum(mk,3);
     %imagesc(G-mk1)
 end
