@@ -59,7 +59,7 @@ elseif(method ==3)
 elseif(method ==4)
     textmethod ="Weighted Billinear Method "; % Weighted Billinear Method (WB)
 elseif(method ==5)
-    textmethod ="Scattered data interpolation methods "; % cattered data interpolation methods
+    textmethod ="Scattered data interpolation methods "; % Scattered data interpolation methods
 end
 
 
