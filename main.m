@@ -36,7 +36,7 @@ elseif(NF ==144)
     d = 1;
 end
 
-method = 2; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5 Interpolation
+method = 2; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods
 code = 2; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006) 
 if(code==0)
     textcode ="Random ";
