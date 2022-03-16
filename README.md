@@ -1,8 +1,8 @@
-# Demosaicking Multispectral Images Based on Sphere Packing Filter Design
+# Multispectral mosaic design using a sphere packing filter array
 
 This repository contains the code to reproduce the results presented in the paper following paper:
 
-*A. Alvarado, N. Diaz, P. Meza and E. Vera, "Demosaicking Multispectral Images Based on Sphere Packing Filter Design," in Optics Express, 2022.
+*A. Alvarado, N. Diaz, P. Meza and E. Vera, "Multispectral mosaic design using a spherepacking filter array," in Optics Express, 2022.
 
 This repository aims to design the coded apertures for multispectral demosaicking. The reconstruction is performed using the captured compressive projection using interpolation method.
 
