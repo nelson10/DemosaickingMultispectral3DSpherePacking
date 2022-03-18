@@ -13,7 +13,7 @@ clc
 addpath(genpath('./utils'));
 addpath(genpath('./results'));
 N = 256;
-NF = 16; % Number of filters
+NF = 9; % Number of filters
 x = ones(N,1);
 y = (1:N)';
 I = kron(x',y);

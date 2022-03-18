@@ -21,33 +21,39 @@ addpath(genpath('./Pattern'));
 addpath(genpath('./Results'));
 
 %% Parameters
-N = 256; % Spatial resolution
+N = 512; % Spatial resolution
 NF = 16; % Number of bands put 8 or 16
 JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
-d = 15;
+d = 32;
 table =zeros(d,4); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
 table2 =zeros(d,4); % PSNR, SSIM, RMSE, SAM of BTES(5-16) or Random methods
-comparisonRGB = 1; % 1 Show Groundtruth and Reconstructions, 0 it shows nothing
+comparisonRGB = 0; % 1 Show Groundtruth and Reconstructions, 0 it shows nothing
 
 
 if (NF <= 31)
-    d = 15; % Select the dataset (Numbers between 1 and 15)
+    d = 32; % Select the dataset (Numbers between 1 and 15)
 elseif(NF ==144)
     d = 1;
 end
 
-method = 2; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods
+method = 5; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods
 code = 2; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006) 
 if(code==0)
-    textcode ="Random ";
-    [G] = demosaickmethods(N,NF,code);
+    textcode ="Random Pattern ";
+    [G] = codedPatterns(N,NF,code);
 elseif(code == 1)
-    textcode ="BTES ";  %Binary Tree-based edge-sensing (BTES)
-    [G] = demosaickmethods(N,NF,code);
+    textcode ="BTES Pattern ";  %Binary Tree-based edge-sensing (BTES)
+    [G] = codedPatterns(N,NF,code);
 elseif(code ==2)
-    textcode ="Brauers "; % (Brauers and Aach, 2006) 
+    textcode ="Brauers Pattern "; % (Brauers and Aach, 2006) 
     %Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
-    [G] = demosaickmethods(N,NF,code);
+    [G] = codedPatterns(N,NF,code);
+elseif(code ==3)
+    textcode ="Sequential Pattern ";
+    [G] = codedPatterns(N,NF,code);
+elseif(code ==4)
+    textcode ="Uniform Pattern ";
+    [G] = codedPatterns(N,NF,code);
 end
 
 if(method==1)
@@ -66,10 +72,11 @@ end
 %% Load Designed Coded Apertue
 ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
+figure('Renderer', 'painters', 'Position', [10 10 900 600])
 
 for k=1:d % iterave over the datasets
     if(NF <= 31)
-        alldataset = {'balloons_ms','beads_ms','cd_ms','chart','clay_ms','cloth_ms','egyptian_statue_ms','feathers_ms','flowers_ms','glass_tiles_ms','pompoms_ms','sponges_ms','stuffed_toys_ms','superballs_ms','thread_spools_ms'};
+        alldataset = {'balloons_ms','beads_ms','cd_ms','chart','clay_ms','cloth_ms','egyptian_statue_ms','feathers_ms','flowers_ms','glass_tiles_ms','pompoms_ms','sponges_ms','stuffed_toys_ms','superballs_ms','thread_spools_ms','fake_and_real_beers_ms','face_ms','real_and_fake_peppers_ms','real_and_fake_apples_ms','photo_and_face_ms','paints_ms','oil_painting_ms','jelly_beans_ms','hairs_ms','fake_and_real_tomatoes_ms','fake_and_real_sushi_ms','fake_and_real_strawberries_ms','fake_and_real_peppers_ms','fake_and_real_lemons_ms','fake_and_real_lemon_slices_ms','fake_and_real_food_ms','watercolors_ms'};
         dataset = alldataset{k};
     elseif(NF ==144)
         dataset = '2013_IEEE_GRSS_DF_Contest_CASI.tif';
@@ -110,21 +117,26 @@ for k=1:d % iterave over the datasets
     %% Generate RGB image from datacube
     [RGB] = RGB_test(X);
     [RGBr] = RGB_test(Xrec);
+    %[p2,s2,r2,sam2] = metrics(RGB,RGBr);
+    %[p3,s3,r3,sam3] = metrics(RGB,RGBrBTES);
+    %table3(k,:) = [p2,s2,r2,sam2];
+    %table4(k,:) = [p3,s3,r3,sam3];
     %[RGB] = Convert2RGB(X,NF);
     %[RGBr] = Convert2RGB(Xrec,NF);
     
     %% Groundtruth, Proposed method, and SOTA
     if(comparisonRGB ==1)
-        figure(1)
         subplot(1,3,1),imagesc(RGB),title("Groundtruth ")
         pbaspect([1 1 1])
-        subplot(1,3,2),imagesc(RGBr),title("Optimal Distance, PSNR=  " + num2str(p)+" dB")
+        subplot(1,3,2),imagesc(RGBr),title("Optimal Distance, PSNR=  " + num2str(p)+" dB, SAM= "+num2str(sam))
         pbaspect([1 1 1])
-        subplot(1,3,3),imagesc(RGBrBTES),title(textmethod +"+"+ textcode + num2str(NF)+", PSNR= " + num2str(p1)+" dB")
+        subplot(1,3,3),imagesc(RGBrBTES),title(textmethod +"+ "+ textcode + num2str(NF)+", PSNR= " + num2str(p1)+" dB, SAM= "+num2str(sam1))
         pbaspect([1 1 1])
     end
 end
 texto = "Results/results_NF=" + num2str(NF)+"N="+num2str(N)+".mat";
-%save(texto,'table','table2')
+save(texto,'table','table2')
 mean(table)
 mean(table2)
+% mean(table3)
+% mean(table4)
