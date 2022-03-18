@@ -12,7 +12,7 @@ close all
 clc
 addpath(genpath('./utils'));
 addpath(genpath('./results'));
-N = 256;
+N = 512;
 NF = 16; % Number of filters
 x = ones(N,1);
 y = (1:N)';

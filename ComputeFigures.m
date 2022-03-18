@@ -19,7 +19,7 @@ addpath(genpath('./Results'));
 % Select 3 to compare spatial correlation
 % Select 4 to obtain upper bound
 % Select 5 to compare spheres packing: 
-figu = 5; 
+figu = 2; 
 
 if(figu == 1)
     figure1DistanceComparison();

@@ -36,45 +36,49 @@ elseif(NF ==144)
     d = 1;
 end
 
-method = 5; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods
-code = 2; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006) 
+method = 2; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods
+code = 2; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006)
 if(code==0)
-    textcode ="Random Pattern ";
+    textcode ="Random";
     [G] = codedPatterns(N,NF,code);
 elseif(code == 1)
-    textcode ="BTES Pattern ";  %Binary Tree-based edge-sensing (BTES)
+    textcode ="BTES";  %Binary Tree-based edge-sensing (BTES)
     [G] = codedPatterns(N,NF,code);
 elseif(code ==2)
-    textcode ="Brauers Pattern "; % (Brauers and Aach, 2006) 
+    textcode ="Brauers"; % (Brauers and Aach, 2006)
     %Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
     [G] = codedPatterns(N,NF,code);
 elseif(code ==3)
-    textcode ="Sequential Pattern ";
+    textcode ="Sequential";
     [G] = codedPatterns(N,NF,code);
 elseif(code ==4)
-    textcode ="Uniform Pattern ";
+    textcode ="Uniform";
     [G] = codedPatterns(N,NF,code);
 end
 
 if(method==1)
-    textmethod ="Convolution Filter "; % Convolution Filter (CF)
+    textmethod ="Convolution_Filter"; % Convolution Filter (CF)
 elseif(method == 2)
-    textmethod="Iterative Intensity Difference ";  %Iterative Intensity Difference (IID)
+    textmethod="Iterative_Intensity_Difference";  %Iterative Intensity Difference (IID)
 elseif(method ==3)
-    textmethod ="Intensity Difference "; % Intensity Difference (ID)
+    textmethod ="Intensity_Difference"; % Intensity Difference (ID)
 elseif(method ==4)
-    textmethod ="Weighted Billinear Method "; % Weighted Billinear Method (WB)
+    textmethod ="Weighted_Billinear_Method"; % Weighted Billinear Method (WB)
 elseif(method ==5)
-    textmethod ="Scattered data interpolation methods "; % Scattered data interpolation methods
+    textmethod ="Scattered_data_interpolation_methods"; % Scattered data interpolation methods
 end
 
 
 %% Load Designed Coded Apertue
 ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
-figure('Renderer', 'painters', 'Position', [10 10 900 600])
+if(comparisonRGB ==1)
+    figure('Renderer', 'painters', 'Position', [10 10 900 600])
+end
 
 for k=1:d % iterave over the datasets
+    disp("Dataset="+num2str(k));
+    disp("---------------------------------------------------------------------------------------------------------")
     if(NF <= 31)
         alldataset = {'balloons_ms','beads_ms','cd_ms','chart','clay_ms','cloth_ms','egyptian_statue_ms','feathers_ms','flowers_ms','glass_tiles_ms','pompoms_ms','sponges_ms','stuffed_toys_ms','superballs_ms','thread_spools_ms','fake_and_real_beers_ms','face_ms','real_and_fake_peppers_ms','real_and_fake_apples_ms','photo_and_face_ms','paints_ms','oil_painting_ms','jelly_beans_ms','hairs_ms','fake_and_real_tomatoes_ms','fake_and_real_sushi_ms','fake_and_real_strawberries_ms','fake_and_real_peppers_ms','fake_and_real_lemons_ms','fake_and_real_lemon_slices_ms','fake_and_real_food_ms','watercolors_ms'};
         dataset = alldataset{k};
@@ -87,7 +91,7 @@ for k=1:d % iterave over the datasets
     %% Reconstruction using Sphere Packing based Coded Aperture
     [Xrec,X]= Reconstruction(dataset,Go,NF,JC,method);
     
-    disp("Interpolation of Spectral Compressive Measurements Captured using Designed Coded Apertures, Dataset "+ dataset);
+    disp("Multispectral Demosaicking using "+textmethod+", CA= Designed pattern, Dataset= "+ dataset);
     Xrec(Xrec(:)<0) = 0;
     %% Compute metrics
     X = mat2gray(X);
@@ -100,7 +104,7 @@ for k=1:d % iterave over the datasets
     %% Table of metrics proposed method for each dataset
     table(k,:) =[p,s,r,sam];
     XrecBTES(XrecBTES(:)<0) = 0;
-    disp("Interpolation of Spectral Compressive Measurements Captured using BTES Coded Pattern, Dataset "+ dataset);
+    disp("Multispectral Demosaicking using "+ textmethod + ", CA= "+textcode+", Dataset= " + dataset);
     %% Compute metrics
     for i=1:NF
         temp = XrecBTES(:,:,i);
@@ -130,7 +134,7 @@ for k=1:d % iterave over the datasets
         pbaspect([1 1 1])
     end
 end
-texto = "Results/results_NF=" + num2str(NF)+"N="+num2str(N)+textmethod+".mat";
+texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 save(texto,'table','table2')
 mean(table)
 mean(table2)
