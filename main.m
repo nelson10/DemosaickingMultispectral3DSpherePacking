@@ -85,7 +85,7 @@ for k=1:d % iterave over the datasets
     %% Reconstruction using State-of-art-BTES(5-16) (NF<=16), and random (NF > 16)
     [XrecBTES,~]= Reconstruction(dataset,G,NF,JC,method);
     %% Reconstruction using Sphere Packing based Coded Aperture
-    [Xrec,X]= Reconstruction(dataset,mask,NF,JC,method);
+    [Xrec,X]= Reconstruction(dataset,Go,NF,JC,method);
     
     disp("Interpolation of Spectral Compressive Measurements Captured using Designed Coded Apertures, Dataset "+ dataset);
     Xrec(Xrec(:)<0) = 0;
@@ -117,26 +117,20 @@ for k=1:d % iterave over the datasets
     %% Generate RGB image from datacube
     [RGB] = RGB_test(X);
     [RGBr] = RGB_test(Xrec);
-    %[p2,s2,r2,sam2] = metrics(RGB,RGBr);
-    %[p3,s3,r3,sam3] = metrics(RGB,RGBrBTES);
-    %table3(k,:) = [p2,s2,r2,sam2];
-    %table4(k,:) = [p3,s3,r3,sam3];
     %[RGB] = Convert2RGB(X,NF);
     %[RGBr] = Convert2RGB(Xrec,NF);
     
     %% Groundtruth, Proposed method, and SOTA
     if(comparisonRGB ==1)
-        subplot(1,3,1),imagesc(RGB),title("Groundtruth ")
+        subplot(1,3,1),imagesc(RGB),title("Groundtruth ");
         pbaspect([1 1 1])
-        subplot(1,3,2),imagesc(RGBr),title("Optimal Distance, PSNR=  " + num2str(p)+" dB, SAM= "+num2str(sam))
+        subplot(1,3,2),imagesc(RGBr),title("Optimal Distance, PSNR=  " + num2str(p)+" dB, SAM= "+num2str(sam));
         pbaspect([1 1 1])
-        subplot(1,3,3),imagesc(RGBrBTES),title(textmethod +"+ "+ textcode + num2str(NF)+", PSNR= " + num2str(p1)+" dB, SAM= "+num2str(sam1))
+        subplot(1,3,3),imagesc(RGBrBTES),title(textmethod +"+ "+ textcode + num2str(NF)+", PSNR= " + num2str(p1)+" dB, SAM= "+num2str(sam1));
         pbaspect([1 1 1])
     end
 end
-texto = "Results/results_NF=" + num2str(NF)+"N="+num2str(N)+".mat";
+texto = "Results/results_NF=" + num2str(NF)+"N="+num2str(N)+textmethod+".mat";
 save(texto,'table','table2')
 mean(table)
 mean(table2)
-% mean(table3)
-% mean(table4)

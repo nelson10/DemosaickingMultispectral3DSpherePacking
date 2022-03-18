@@ -13,7 +13,7 @@ clc
 addpath(genpath('./utils'));
 addpath(genpath('./results'));
 N = 256;
-NF = 9; % Number of filters
+NF = 16; % Number of filters
 x = ones(N,1);
 y = (1:N)';
 I = kron(x',y);
@@ -24,8 +24,12 @@ b(1)
 si = a(1);
 sj = b(1);
 G = mod(I.*si + J.*sj,NF)+1;
-mask = G;
-imagesc(mask==1),colormap('gray')
+Go = G;
+C = zeros(N,N,NF);
+for i=1:NF
+    C(:,:,i)=(G==i);
+end
+imagesc(Go==1),colormap('gray')
 G(1:8,1:8)
 ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
-save(ti,'mask','dist')
+save(ti,'C','Go','dist')
