@@ -54,6 +54,6 @@ texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Stand
 subplot(1,3,2),imagesc(T),title(texto, 'FontSize', 14), colorbar;
 pbaspect([1 1 1])
 
-subplot(1,3,3),imshow(Go==1,[]),title("Pattern 1 Band", 'FontSize', 14), colorbar;
+subplot(1,3,3),imshow(Go==1,[]),title("Pattern at the 1st Band", 'FontSize', 14), colorbar;
 pbaspect([1 1 1])
 G(1:8,1:8)
