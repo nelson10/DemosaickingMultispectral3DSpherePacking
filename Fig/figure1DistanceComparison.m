@@ -8,8 +8,8 @@
 clear;
 close all
 clc
-N = 256;
-NF = 16;
+N = 512;
+NF = 9;
 mask = zeros(N,N,NF);
 ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
