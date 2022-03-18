@@ -1,6 +1,4 @@
 function [Xrec,X] = Reconstruction(dataset,mask,L,JC,method)
-length(unique(mask(:)))
-
 [M1,~,] = size(mask);
 if(L <= 31)
     load(dataset+".mat");
@@ -33,7 +31,7 @@ for i=1:L
     T(:,:,i) = (mask==i);
 end
 Y = sum(J,3);
-save('measure','Y')
+%save('measure','Y')
 %imagesc(Y)
 %% Activate JointCodedApertures to assume spectral correlation
 if(JC == 1)

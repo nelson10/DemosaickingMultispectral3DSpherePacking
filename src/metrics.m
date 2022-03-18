@@ -34,4 +34,5 @@ s= mean(s); % ssim
 r = mean(rm); % rmse
 sam = mean(sa(:)); % sam Measure spectral similarity using spectral angle mapper
 disp("PSNR "+ num2str(p)+ " SSIM "+num2str(s)+" RMSE "+num2str(r)+" SAM "+num2str(sam));
+disp("---------------------------------------------------------------------------------------------------------")
 end
