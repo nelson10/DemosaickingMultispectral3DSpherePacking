@@ -17,11 +17,15 @@ function [Xrec] = IterativeIntensityDifference(J,G)
 %implay(mk)
 M = 1/64*[1 2 2 2 1;2 4 4 4 2;2 4 4 4 2;2 4 4 4 2; 1 2 2 2 1];
 H = (1/16)*[1 2 3 4 3 2 1;2 4 6 8 6 4 2;3 6 9 12 9 6 3;4 8 12 16 12 8 4;3 6 9 12 9 6 3;2 4 6 8 6 4 2;1 2 3 4 3 2 1]; % Low-pass filter
-Y = sum(J,3);
-Im= imfilter(Y,M,'conv');
+Y = sum(J,3)/255;
+%Im= imfilter(Y,M,'conv')./255;
+Im = conv2(Y, M, 'same');
+%montage({Im,Im2})
+%title("Reference Image (Left) vs. Blurred Image (Right)")
 for k=1:K
     delta(:,:,k) = J(:,:,k) - (Im.*(G==k));
-    delta2(:,:,k) = imfilter(delta(:,:,k),H,'conv');
+    %delta2(:,:,k) = imfilter(delta(:,:,k),H,'conv');
+    delta2(:,:,k) = conv2(delta(:,:,k), H, 'same');
     Xrec(:,:,k) = Im + delta2(:,:,k);
 end
 N = 7;
@@ -29,7 +33,8 @@ for n = 1:N
     It = 1/16 *sum(Xrec,3);
     for k=1:K
         delta(:,:,k) = J(:,:,k) - (It.*(G==k));
-        delta2(:,:,k) = imfilter(delta(:,:,k),H,'conv');
+        %delta2(:,:,k) = imfilter(delta(:,:,k),H,'conv');
+        delta2(:,:,k) = conv2(delta(:,:,k), H, 'same');
         Xrec(:,:,k) = It + delta2(:,:,k);
     end
 end

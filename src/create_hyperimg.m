@@ -21,14 +21,40 @@ addpath(genpath('./Dataset'));
 % kind = {'pompoms_ms'};
 % kind = {'stuffed_toys_ms'};
 % kind = {'thread_spools_ms'};
+%kind = {'fake_and_real_beers_ms'};
+%   kind = {'face_ms'};
+kind = {'watercolors_ms'};
+%kind = {'thread_spools_ms'};
+%kind = {'real_and_fake_peppers_ms'};
+%kind = {'real_and_fake_apples_ms'};
+%kind = {'photo_and_face_ms'};
+%kind = {'paints_ms'};
+%kind = {'oil_painting_ms'};
+%kind = {'jelly_beans_ms'};
+%kind = {'hairs_ms'};
+%kind = {'fake_and_real_tomatoes_ms'};
+%kind = {'fake_and_real_sushi_ms'};
+%kind = {'fake_and_real_strawberries_ms'};
+%kind = {'fake_and_real_peppers_ms'}; 
+%kind = {'watercolors_ms'};
+%kind = {'fake_and_real_food_ms'};
+%kind = {'fake_and_real_lemon_slices_ms'};
+%kind = {'fake_and_real_lemons_ms'};
 
 
 for i =1:31
     if(i <= 9)
-        hyperimg(:,:,i) = imread([kind{1}+"_0"+num2str(i)+".png"]);
+        texto =[kind{1}+"_0"+num2str(i)+".png"];
+        temp = imread(texto);
+        hyperimg(:,:,i) = rgb2gray(temp);
+        i
     else
-        hyperimg(:,:,i) = imread([kind{1}+"_"+num2str(i)+".png"]);
+        texto = [kind{1}+"_"+num2str(i)+".png"];
+        temp = imread(texto);
+        hyperimg(:,:,i) = rgb2gray(temp);
     end
     
 end
+
+
 save([kind{1}+".mat"],'hyperimg');
