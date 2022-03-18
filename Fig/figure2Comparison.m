@@ -7,19 +7,36 @@ close all;
 clc;
 NF = 16;
 N = 512;
-method = 5;
+method = 2;
+code = 3;
+d = 32;
+
 if(method==1)
-    textmethod ="Convolution Filter "; % Convolution Filter (CF)
+    textmethod ="Convolution_Filter"; % Convolution Filter (CF)
 elseif(method == 2)
-    textmethod="Iterative Intensity Difference ";  %Iterative Intensity Difference (IID)
+    textmethod="Iterative_Intensity_Difference";  %Iterative Intensity Difference (IID)
 elseif(method ==3)
-    textmethod ="Intensity Difference "; % Intensity Difference (ID)
+    textmethod ="Intensity_Difference "; % Intensity Difference (ID)
 elseif(method ==4)
-    textmethod ="Weighted Billinear Method "; % Weighted Billinear Method (WB)
+    textmethod ="Weighted_Billinear_Method"; % Weighted Billinear Method (WB)
 elseif(method ==5)
-    textmethod ="Scattered data interpolation methods "; % Scattered data interpolation methods
+    textmethod ="Scattered_data_interpolation_methods"; % Scattered data interpolation methods
 end
-texto = "results_NF=" + num2str(NF)+"N="+num2str(N)+textmethod+".mat";
+
+if(code==0)
+    textcode ="Random";
+elseif(code == 1)
+    textcode ="BTES";  %Binary Tree-based edge-sensing (BTES)
+elseif(code ==2)
+    textcode ="Brauers"; % (Brauers and Aach, 2006) 
+    %Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
+elseif(code ==3)
+    textcode ="Sequential";
+elseif(code ==4)
+    textcode ="Uniform";
+end
+
+texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 load(texto);
 figure('Renderer', 'painters', 'Position', [10 10 900 600])
 fontsize = 14;
@@ -30,22 +47,17 @@ plot(table(:,1),'-b','LineWidth',1.5)
 hold on;
 grid on;
 
-if(NF<=16 & NF>=5)
-    texto = "Designed Against BTES ";
-elseif(NF==25 | NF==31)
-    texto = "Designed Against Random ";
-end
+texto = "Designed Against "+textcode;
+
 
 xlabel('Dataset','FontSize',fontsize)
 ylabel('Reconstruction Quality','FontSize',fontsize)
-legend("Designed"+num2str(NF),'FontSize',fontsize)
+
+
 plot(table2(:,1),'-r','LineWidth',1.5),title(texto, 'FontSize', fontsize)
 pbaspect([4 2 1])
+legend("Designed"+num2str(NF),textcode+num2str(NF),'FontSize',fontsize)
+%legend("Designed "+textcode+num2str(NF),'FontSize',fontsize)
 
-if(NF<=16 & NF>=5)
-    legend("Designed","BTES"+num2str(NF),'FontSize',fontsize)
-elseif(NF==25 | NF==31)
-    legend("Designed","Random"+num2str(NF),'FontSize',fontsize)
-end
 mean(table)
 mean(table2)
