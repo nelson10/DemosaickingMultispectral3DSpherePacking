@@ -136,5 +136,7 @@ for k=1:d % iterave over the datasets
 end
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 save(texto,'table','table2')
+disp("Designed")
 mean(table)
+disp("SOTA")
 mean(table2)
