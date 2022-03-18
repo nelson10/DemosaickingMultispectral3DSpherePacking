@@ -140,3 +140,4 @@ disp("Designed")
 mean(table)
 disp("SOTA")
 mean(table2)
+ComputeFigures();
