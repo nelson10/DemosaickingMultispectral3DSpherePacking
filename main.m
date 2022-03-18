@@ -57,15 +57,15 @@ elseif(code ==4)
 end
 
 if(method==1)
-    textmethod ="Convolution_Filter"; % Convolution Filter (CF)
+    textmethod ="ConvolutionFilter"; % Convolution Filter (CF)
 elseif(method == 2)
-    textmethod="Iterative_Intensity_Difference";  %Iterative Intensity Difference (IID)
+    textmethod="IterativeIntensityDifference";  %Iterative Intensity Difference (IID)
 elseif(method ==3)
-    textmethod ="Intensity_Difference"; % Intensity Difference (ID)
+    textmethod ="IntensityDifference"; % Intensity Difference (ID)
 elseif(method ==4)
-    textmethod ="Weighted_Billinear_Method"; % Weighted Billinear Method (WB)
+    textmethod ="WeightedBillinearMethod"; % Weighted Billinear Method (WB)
 elseif(method ==5)
-    textmethod ="Scattered_data_interpolation_methods"; % Scattered data interpolation methods
+    textmethod ="ScatteredDataInterpolationMethods"; % Scattered data interpolation methods
 end
 
 
@@ -136,8 +136,8 @@ for k=1:d % iterave over the datasets
 end
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 save(texto,'table','table2')
-disp("Designed")
+disp("Designed");
 mean(table)
-disp("SOTA")
+disp("SOTA");
 mean(table2)
 ComputeFigures();

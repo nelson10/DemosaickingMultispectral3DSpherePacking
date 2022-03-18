@@ -29,7 +29,31 @@ C = zeros(N,N,NF);
 for i=1:NF
     C(:,:,i)=(G==i);
 end
-imagesc(Go==1),colormap('gray')
-G(1:8,1:8)
+
 ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 save(ti,'C','Go','dist')
+
+figure('Renderer', 'painters', 'Position', [10 10 900 600])
+fontsize = 14;
+set(gca,'FontSize',fontsize)
+hold on;
+grid on;
+subplot(1,3,1),imagesc(G(1:N,1:N)),colormap('gray'),title("Designed code NF="+num2str(NF), 'FontSize', 14), colorbar;
+colormap('jet')
+pbaspect([1 1 1])
+
+[T] = distance(G);
+
+m = max(T(:));
+minimum = min(T(:));
+text = "Pattern/design-mask_optimize_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
+%save(text,'C','G','minimum');
+stand = std(T(:));
+prom = mean(T(:));
+texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
+subplot(1,3,2),imagesc(T),title(texto, 'FontSize', 14), colorbar;
+pbaspect([1 1 1])
+
+subplot(1,3,3),imshow(Go==1,[]),title("Pattern 1 Band", 'FontSize', 14), colorbar;
+pbaspect([1 1 1])
+G(1:8,1:8)
