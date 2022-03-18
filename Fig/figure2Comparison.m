@@ -12,15 +12,15 @@ code = 3;
 d = 32;
 
 if(method==1)
-    textmethod ="Convolution_Filter"; % Convolution Filter (CF)
+    textmethod ="ConvolutionFilter"; % Convolution Filter (CF)
 elseif(method == 2)
-    textmethod="Iterative_Intensity_Difference";  %Iterative Intensity Difference (IID)
+    textmethod="IterativeIntensityDifference";  %Iterative Intensity Difference (IID)
 elseif(method ==3)
-    textmethod ="Intensity_Difference "; % Intensity Difference (ID)
+    textmethod ="IntensityDifference "; % Intensity Difference (ID)
 elseif(method ==4)
-    textmethod ="Weighted_Billinear_Method"; % Weighted Billinear Method (WB)
+    textmethod ="WeightedBillinearMethod"; % Weighted Billinear Method (WB)
 elseif(method ==5)
-    textmethod ="Scattered_data_interpolation_methods"; % Scattered data interpolation methods
+    textmethod ="ScatteredDataInterpolationMethods"; % Scattered data interpolation methods
 end
 
 if(code==0)
