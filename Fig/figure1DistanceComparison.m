@@ -10,13 +10,13 @@ close all
 clc
 N = 512;
 NF = 9;
-mask = zeros(N,N,NF);
+C = zeros(N,N,NF);
 ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
-G = mask;
+G = Go;
 
 for i=1:NF
-    mask(:,:,i)=(G==i);
+    C(:,:,i)=(G==i);
 end
 
 figure(1)
@@ -32,8 +32,8 @@ pbaspect([1 1 1])
 
 m = max(T(:));
 minimum = min(T(:));
-text = "codes/design-mask_optimize_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
-save(text,'mask','G','minimum');
+text = "Pattern/design-mask_optimize_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
+%save(text,'C','G','minimum');
 stand = std(T(:));
 prom = mean(T(:));
 texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
@@ -109,8 +109,8 @@ colormap('jet')
 [T] = distance(G);
 m = max(T(:));
 minimum = min(T(:));
-text = "codes/design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
-save(text,'mask','G','minimum');
+text = "Pattern/design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
+%save(text,'C','G','minimum');
 stand = std(T(:));
 prom = mean(T(:));
 texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
