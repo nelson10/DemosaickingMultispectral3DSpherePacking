@@ -1,16 +1,10 @@
 function [RGB]= RGB_test(dataset)
 
-%addpath(genpath('./Real-measurements-penguin'));
-%addpath(genpath('./RGB'));
-%load('Nelson_FullSpectral.mat');
+load illum_4000.mat; % evening sunlight with CCT 4000 K 
+load illum_6500.mat; % daylight with CCT 6500 K
+load('illum_25000.mat') % the spectra of blue skylight with correlated colour temperature (CCT) 25000 K
+load xyzbar.mat; % CIE 1931 colour-matching functions
 
-load illum_4000.mat;
-load illum_6500.mat;
-load('illum_25000.mat')
-load xyzbar.mat;
-
-
-%cube = T1;
 cube = dataset;
 L2 = size(cube,3);
 
@@ -24,16 +18,16 @@ hyperimg = double(MS);
 reflectances=hyperimg;
 l=round(linspace(1,33,L));
 
-radiances = zeros(size(reflectances));  % initialize array
+radiances_6500 = zeros(size(reflectances));  % initialize array
 for j=1:L
-    CC = reflectances(:,:,j);
-    reflectances(:,:,j) = reflectances(:,:,j)/max(CC(:));
-    radiances(:,:,j) = reflectances(:,:,j)*illum_6500(l(j));
+    temp = reflectances(:,:,j);
+    reflectances(:,:,j) = reflectances(:,:,j)/max(temp(:));
+    radiances_6500(:,:,j) = reflectances(:,:,j)*illum_6500(l(j)); % daylight with CCT 6500 K
 end
-[r, c, w] = size(radiances);
-radiances = reshape(radiances, r*c, w);
+[r, c, w] = size(radiances_6500);
+radiances_6500 = reshape(radiances_6500, r*c, w);
 
-XYZ = (xyzbar(l(:),:)'*radiances')';
+XYZ = (xyzbar(l(:),:)'*radiances_6500')';
 XYZ = reshape(XYZ, r, c, 3);
 XYZ = max(XYZ, 0);
 XYZ = XYZ/max(XYZ(:));
