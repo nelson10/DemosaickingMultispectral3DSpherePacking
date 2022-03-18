@@ -10,7 +10,9 @@ function [res]=distan(G)
 %% 3D statistics
 [~,N]= size(G);
 L = round(sqrt(N));
-[r,c,z] = find(G(1:L,1:L));
+%L = max(G(:));
+G = G(1:L,1:L);
+[r,c,z] = find(G);
 B = [r c z];
 T = zeros(L,L);
 D = pdist(B);
@@ -19,8 +21,15 @@ for i=1:L^2
     [~,~,values]=find(dist(i,:));
     T(r(i),c(i)) = min(values);
 end
-b = min(dist(dist>0));
-res = b;
+%b = min(dist(dist>0));
+%res = b;
+bmax = max(T(:));
+bmin = min(T(:));
+if(bmax==bmin)
+    res = bmin;
+else
+    res = 0;
+end
 end
 
 
