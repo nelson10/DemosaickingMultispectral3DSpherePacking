@@ -85,7 +85,11 @@ elseif(code == 3)
     B = ones(N/4,N/4);
     G = kron(B,A);
 elseif(code == 4)
-    A = [1,2,3,4;2,3,4,1;3,4,5,2;13,14,15,16]; % Sequencial
+    A = [1,2,3,4;2,3,4,1;3,4,5,2;13,14,15,16]; % Uniform
+    B = ones(N/4,N/4);
+    G = kron(B,A);
+elseif(code == 5)
+    A = [7,8,6,5;15,16,14,13;11,12,10,9;3,4,2,1]; % Uniform
     B = ones(N/4,N/4);
     G = kron(B,A);
 end

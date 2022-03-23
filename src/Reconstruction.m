@@ -12,6 +12,9 @@ if(L <= 31)
         end
         hyperimg = I;
     end
+    
+    %hyperimg = radiance(hyperimg);
+    
 elseif(L ==144)
     hyperimg = imread(dataset);
     id = round(linspace(1,144,L));
@@ -25,9 +28,10 @@ for i=1:L
 end
 
 X= mat2gray(double(data));
+%X = radiance(X);
 
 for i=1:L
-    J(:,:,i) = X(:,:,i).*(mask==i).*255;
+    J(:,:,i) = X(:,:,i).*(mask==i);
     T(:,:,i) = (mask==i);
 end
 Y = sum(J,3);
@@ -39,7 +43,7 @@ if(JC == 1)
     [Xrec] = interpolation(J);
 else
     if(method == 1)
-        [Xrec] = ConvolutionFilterdemosaicking(J,mask); % Convolution Filter 
+        [Xrec] = ConvolutionFilterdemosaicking(J,mask); % Convolution Filter
     elseif(method == 2)
         [Xrec] = IterativeIntensityDifference(J,mask);  % Iterative Intensity Difference
     elseif(method == 3)
@@ -47,7 +51,13 @@ else
     elseif(method == 4)
         [Xrec] = WeightedBillinearMethod(J); % Weighted Billinear Method
     elseif(method == 0 || method == 5)
-        [Xrec] = interpolation(J); % Scattered data interpolation methods 
+        [Xrec] = interpolation(J); % Scattered data interpolation methods
+    elseif(method == 6)
+        [Xrec] = IterativeNearbyChannelDifference(J,mask); % Iterative Nearby Channel Difference(ItNCD)
+    elseif(method == 7)
+        [Xrec] = SpectralDifference(J,mask); % Spectral Difference (SD)
+    elseif(method == 8)
+        [Xrec] = IterativeSpectralDifference(J,mask); % Iterative Spectral Difference (SD)
     end
 end
 
