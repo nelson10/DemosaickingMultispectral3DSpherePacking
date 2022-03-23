@@ -28,7 +28,8 @@ d = 32;
 table =zeros(d,4); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
 table2 =zeros(d,4); % PSNR, SSIM, RMSE, SAM of BTES(5-16) or Random methods
 comparisonRGB = 0; % 1 Show Groundtruth and Reconstructions, 0 it shows nothing
-
+method = 6; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods, 6 Iterative Nearby Channel Difference(ItNCD), 7 Spectral Difference(SD), 8 Iterative Spectral Difference(SD)    
+code = 5; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
 
 if (NF <= 31)
     d = 32; % Select the dataset (Numbers between 1 and 15)
@@ -36,8 +37,6 @@ elseif(NF ==144)
     d = 1;
 end
 
-method = 2; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods
-code = 3; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006)
 if(code==0)
     textcode ="Random";
     [G] = codedPatterns(N,NF,code);
@@ -54,6 +53,9 @@ elseif(code ==3)
 elseif(code ==4)
     textcode ="Uniform";
     [G] = codedPatterns(N,NF,code);
+elseif(code ==5)
+    textcode ="IMEC";
+    [G] = codedPatterns(N,NF,code);
 end
 
 if(method==1)
@@ -66,6 +68,12 @@ elseif(method ==4)
     textmethod ="WeightedBillinearMethod"; % Weighted Billinear Method (WB)
 elseif(method ==5)
     textmethod ="ScatteredDataInterpolationMethods"; % Scattered data interpolation methods
+elseif(method ==6)    
+    textmethod="IterativeNearbyChannelDifference(ItNCD)";  %Iterative Nearby Channel Difference(ItNCD)
+elseif(method ==7)    
+    textmethod="SpectralDifference(SD)";  % Spectral Difference(SD)  
+elseif(method ==8)    
+    textmethod="IterativeSpectralDifference(ItSD)";  % Iterative Spectral Difference(SD)  
 end
 
 

@@ -30,8 +30,8 @@ elseif(figu == 3)
 elseif(figu == 4)
     figure4_simple();
 elseif(figu == 5)
-    NF = 16;
-    N = 256;
+    NF = 31;
+    N = 512;
     texto = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
     load(texto);
     [~]=figure5(N,NF,Go,dist);
