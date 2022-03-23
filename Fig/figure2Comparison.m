@@ -5,10 +5,10 @@
 %% Compare BTES Against Designed patterns
 close all;
 clc;
-NF = 16;
-N = 512;
-method = 2;
-code = 3;
+N = 512; % Spatial resolution
+NF = 16; % Number of bands put 8 or 16
+method = 8; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods
+code = 3; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006)
 d = 32;
 
 if(method==1)
@@ -21,6 +21,12 @@ elseif(method ==4)
     textmethod ="WeightedBillinearMethod"; % Weighted Billinear Method (WB)
 elseif(method ==5)
     textmethod ="ScatteredDataInterpolationMethods"; % Scattered data interpolation methods
+elseif(method ==6)
+    textmethod="IterativeNearbyChannelDifference(ItNCD)";  %Iterative Nearby Channel Difference(ItNCD)
+elseif(method ==7)
+    textmethod="SpectralDifference(SD)";  % Spectral Difference(SD)
+elseif(method ==8)
+    textmethod="IterativeSpectralDifference(ItSD)";  % Iterative Spectral Difference(SD)
 end
 
 if(code==0)
@@ -28,7 +34,7 @@ if(code==0)
 elseif(code == 1)
     textcode ="BTES";  %Binary Tree-based edge-sensing (BTES)
 elseif(code ==2)
-    textcode ="Brauers"; % (Brauers and Aach, 2006) 
+    textcode ="Brauers"; % (Brauers and Aach, 2006)
     %Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
 elseif(code ==3)
     textcode ="Sequential";
