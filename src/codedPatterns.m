@@ -84,15 +84,20 @@ elseif(code == 3)
     A = [1,2,3,4;5,6,7,8;9,10,11,12;13,14,15,16]; % Sequencial
     B = ones(N/4,N/4);
     G = kron(B,A);
-elseif(code == 4)
+elseif(code == 4) 
+    % H. K. Aggarwal and A. Majumdar, "Single-sensor multi-spectral image demosaicing algorithm using learned interpolation weights," 2014 IEEE Geoscience and Remote Sensing Symposium, 2014, pp. 2011-2014, doi: 10.1109/IGARSS.2014.6946857.
     A = zeros(NF,NF);
     for i=1:NF
         A(i,:) = circshift(1:NF,-(i-1)); % Uniform (Aggarwal)
     end
-    B = ones(N/NF,N/NF);
+    p = ceil(N/NF);
+    B = ones(p,p);
     G = kron(B,A);
+    G = G(1:N,1:N);
 elseif(code == 5)
     A = [7,8,6,5;15,16,14,13;11,12,10,9;3,4,2,1]; % IMEC
     B = ones(N/4,N/4);
     G = kron(B,A);
+elseif(code == 6)
+    [~,~,~,G]=DDDRSNNP3(N,NF);
 end

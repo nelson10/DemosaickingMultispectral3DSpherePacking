@@ -37,7 +37,7 @@ for t = 1:N
     for i=1:K
         if(i==1)
             It(:,:,i) = (It(:,:,i) + 2*It(:,:,i+1))/3;
-        elseif(i==16)
+        elseif(i==K)
             It(:,:,i) = (2*It(:,:,i-1) + It(:,:,i))/3;
         else
             It(:,:,i) = (It(:,:,i-1)+ It(:,:,i) + It(:,:,i+1))/3;
