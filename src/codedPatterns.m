@@ -87,7 +87,7 @@ elseif(code == 3)
 elseif(code == 4)
     A = zeros(NF,NF);
     for i=1:NF
-        A(i,:) = circshift(1:NF,i-1); % Uniform
+        A(i,:) = circshift(1:NF,-(i-1)); % Uniform (Aggarwal)
     end
     B = ones(N/NF,N/NF);
     G = kron(B,A);
