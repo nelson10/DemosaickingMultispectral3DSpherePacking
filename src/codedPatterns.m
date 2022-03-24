@@ -75,7 +75,7 @@ elseif(code == 2)
     G = zeros(N,N);
     NF2 = floor(sqrt(NF));
     for k=1:NF
-        G = G + (k-1 == (mod(J-1,NF2) + NF2*(mod(I-1,NF2)))).*k;
+        G = G + (k-1 == (mod(I-1,NF2) + NF2*(mod(J-1,NF2)))).*k;
     end
     %imagesc(G==1)
     %G=sum(mk,3);
@@ -85,11 +85,14 @@ elseif(code == 3)
     B = ones(N/4,N/4);
     G = kron(B,A);
 elseif(code == 4)
-    A = [1,2,3,4;2,3,4,1;3,4,5,2;13,14,15,16]; % Uniform
-    B = ones(N/4,N/4);
+    A = zeros(NF,NF);
+    for i=1:NF
+        A(i,:) = circshift(1:NF,i-1); % Uniform
+    end
+    B = ones(N/NF,N/NF);
     G = kron(B,A);
 elseif(code == 5)
-    A = [7,8,6,5;15,16,14,13;11,12,10,9;3,4,2,1]; % Uniform
+    A = [7,8,6,5;15,16,14,13;11,12,10,9;3,4,2,1]; % IMEC
     B = ones(N/4,N/4);
     G = kron(B,A);
 end
