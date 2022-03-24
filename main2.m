@@ -122,9 +122,8 @@ for c=1:nc
     end
 end
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
-save(texto,'table','table2')
-disp("Designed");
-mean(table)
-disp("SOTA");
-mean(table2)
+save(texto,'table')
+for c=1:nc
+    mean(table(:,:,c))
+end
 %ComputeFigures();
