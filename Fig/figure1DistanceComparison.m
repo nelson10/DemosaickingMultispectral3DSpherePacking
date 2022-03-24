@@ -10,7 +10,7 @@ close all
 clc
 N = 512;
 NF = 16;
-code = 5;
+code = 4; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
 C = zeros(N,N,NF);
 ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 load(ti);
@@ -37,7 +37,8 @@ text = "Pattern/design-mask_optimize_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(N
 %save(text,'C','G','minimum');
 stand = std(T(:));
 prom = mean(T(:));
-texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
+%texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
+texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m);
 subplot(2,2,2),imagesc(T),title(texto, 'FontSize', 14), colorbar;
 pbaspect([1 1 1])
 
@@ -62,17 +63,19 @@ elseif(code ==5)
     textcode ="IMEC";
     [G] = codedPatterns(N,NF,code);
 end
-
+for i=1:NF
+    C(:,:,i) = G==i;
+end
 subplot(2,2,3),imagesc(G(1:N,1:N)),colormap('gray'),title(textcode+num2str(NF)+" code", 'FontSize', 14), colorbar;
 pbaspect([1 1 1])
 colormap('jet')
 [T] = distance(G);
 m = max(T(:));
 minimum = min(T(:));
-text = "Pattern/design-mask_random_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
-%save(text,'C','G','minimum');
+text = "Pattern/CA="+textcode+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
+save(text,'C','G','minimum');
 stand = std(T(:));
 prom = mean(T(:));
-texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
+texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m);% + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
 subplot(2,2,4),imagesc(T),title(texto, 'FontSize', 14), colorbar;
 pbaspect([1 1 1])
