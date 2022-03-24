@@ -9,12 +9,13 @@ clear;
 close all
 clc
 N = 512;
-NF = 16;
-code = 4; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
+NF = 31;
+code = 0; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
 C = zeros(N,N,NF);
-ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
-load(ti);
-G = Go;
+% ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
+% load(ti);
+% G = Go;
+[a,b,ma,G]=DDDRSNNP3(N,NF);
 
 for i=1:NF
     C(:,:,i)=(G==i);
