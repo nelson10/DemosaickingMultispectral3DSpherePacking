@@ -25,11 +25,13 @@ plot(table(:,1,2),'-b','LineWidth',1.5)
 hold on;
 grid on;
 
-texto = "Designed Against "+textcode;
+[textcode1] =checkCode(1);
+[textcode2] =checkCode(6);
+texto = textcode1+" Against "+textcode2;
 xlabel('Dataset','FontSize',fontsize)
 ylabel('Reconstruction Quality','FontSize',fontsize)
 plot(table(:,1,7),'-r','LineWidth',1.5),title(texto, 'FontSize', fontsize)
 pbaspect([4 2 1])
-legend("Designed"+num2str(NF),textcode+num2str(NF),'FontSize',fontsize)
+legend(textcode1+num2str(NF),textcode2+num2str(NF),textcode+num2str(NF),'FontSize',fontsize)
 
 mean(table)
