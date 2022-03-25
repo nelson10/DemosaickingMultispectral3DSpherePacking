@@ -36,55 +36,15 @@ elseif(NF ==144)
     d = 1;
 end
 
-if(method==1)
-    textmethod ="ConvolutionFilter"; % Convolution Filter (CF)
-elseif(method == 2)
-    textmethod="IterativeIntensityDifference";  %Iterative Intensity Difference (IID)
-elseif(method ==3)
-    textmethod ="IntensityDifference"; % Intensity Difference (ID)
-elseif(method ==4)
-    textmethod ="WeightedBillinearMethod"; % Weighted Billinear Method (WB)
-elseif(method ==5)
-    textmethod ="ScatteredDataInterpolationMethods"; % Scattered data interpolation methods
-elseif(method ==6)
-    textmethod="IterativeNearbyChannelDifference(ItNCD)";  %Iterative Nearby Channel Difference(ItNCD)
-elseif(method ==7)
-    textmethod="SpectralDifference(SD)";  % Spectral Difference(SD)
-elseif(method ==8)
-    textmethod="IterativeSpectralDifference(ItSD)";  % Iterative Spectral Difference(SD)
-end
+[textmethod] = checkMethod(method);
 
-%% Load Designed Coded Apertue
-%ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
-%load(ti);
-[a,b,ma,Go]=DDDRSNNP3(N,NF);
 if(comparisonRGB ==1)
     figure('Renderer', 'painters', 'Position', [10 10 900 600])
 end
 for c=1:nc
     code = c-1; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
-    if(code==0)
-        textcode ="Random";
-        [G] = codedPatterns(N,NF,code);
-    elseif(code == 1)
-        textcode ="BTES";  %Binary Tree-based edge-sensing (BTES)
-        [G] = codedPatterns(N,NF,code);
-    elseif(code ==2)
-        textcode ="Brauers"; % (Brauers and Aach, 2006)
-        %Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
-        [G] = codedPatterns(N,NF,code);
-    elseif(code ==3)
-        textcode ="Sequential";
-        [G] = codedPatterns(N,NF,code);
-    elseif(code ==4)
-        textcode ="Uniform";
-        [G] = codedPatterns(N,NF,code);
-    elseif(code ==5)
-        textcode ="IMEC";
-        [G] = codedPatterns(N,NF,code);
-    elseif(code ==6)
-        textcode ="SpherePacking";
-    end
+    [G] = codedPatterns(N,NF,code);
+    [textcode] =checkCode(code);
     
     for k=1:d % iterave over the datasets
         

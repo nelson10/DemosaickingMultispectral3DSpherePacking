@@ -25,11 +25,12 @@ N = 512; % Spatial resolution
 NF = 16; % Number of bands put 8 or 16
 JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
 d = 32;
-table =zeros(d,4); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
-table2 =zeros(d,4); % PSNR, SSIM, RMSE, SAM of BTES(5-16) or Random methods
+
 comparisonRGB = 0; % 1 Show Groundtruth and Reconstructions, 0 it shows nothing
 method = 6; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods, 6 Iterative Nearby Channel Difference(ItNCD), 7 Spectral Difference(SD), 8 Iterative Spectral Difference(SD)    
-code = 5; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
+code = 1; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC, 6 Sphere packing
+nc = 2;
+table =zeros(d,4,nc); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
 
 if (NF <= 31)
     d = 32; % Select the dataset (Numbers between 1 and 15)
@@ -37,49 +38,12 @@ elseif(NF ==144)
     d = 1;
 end
 
-if(code==0)
-    textcode ="Random";
-    [G] = codedPatterns(N,NF,code);
-elseif(code == 1)
-    textcode ="BTES";  %Binary Tree-based edge-sensing (BTES)
-    [G] = codedPatterns(N,NF,code);
-elseif(code ==2)
-    textcode ="Brauers"; % (Brauers and Aach, 2006)
-    %Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
-    [G] = codedPatterns(N,NF,code);
-elseif(code ==3)
-    textcode ="Sequential";
-    [G] = codedPatterns(N,NF,code);
-elseif(code ==4)
-    textcode ="Uniform";
-    [G] = codedPatterns(N,NF,code);
-elseif(code ==5)
-    textcode ="IMEC";
-    [G] = codedPatterns(N,NF,code);
-end
-
-if(method==1)
-    textmethod ="ConvolutionFilter"; % Convolution Filter (CF)
-elseif(method == 2)
-    textmethod="IterativeIntensityDifference";  %Iterative Intensity Difference (IID)
-elseif(method ==3)
-    textmethod ="IntensityDifference"; % Intensity Difference (ID)
-elseif(method ==4)
-    textmethod ="WeightedBillinearMethod"; % Weighted Billinear Method (WB)
-elseif(method ==5)
-    textmethod ="ScatteredDataInterpolationMethods"; % Scattered data interpolation methods
-elseif(method ==6)    
-    textmethod="IterativeNearbyChannelDifference(ItNCD)";  %Iterative Nearby Channel Difference(ItNCD)
-elseif(method ==7)    
-    textmethod="SpectralDifference(SD)";  % Spectral Difference(SD)  
-elseif(method ==8)    
-    textmethod="IterativeSpectralDifference(ItSD)";  % Iterative Spectral Difference(SD)  
-end
-
-
+[G] = codedPatterns(N,NF,code);
+[textcode] =checkCode(code);
+[textmethod] = checkMethod(method);
 %% Load Designed Coded Apertue
-ti = "optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
-load(ti);
+code = 6; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC, 6 Sphere packing
+[Go] = codedPatterns(N,NF,code);
 if(comparisonRGB ==1)
     figure('Renderer', 'painters', 'Position', [10 10 900 600])
 end
@@ -94,7 +58,7 @@ for k=1:d % iterave over the datasets
         dataset = '2013_IEEE_GRSS_DF_Contest_CASI.tif';
     end
     
-    %% Reconstruction using State-of-art-BTES(5-16) (NF<=16), and random (NF > 16)
+    %% Reconstruction using State-of-the-art
     [XrecBTES,~]= Reconstruction(dataset,G,NF,JC,method);
     %% Reconstruction using Sphere Packing based Coded Aperture
     [Xrec,X]= Reconstruction(dataset,Go,NF,JC,method);
@@ -102,7 +66,7 @@ for k=1:d % iterave over the datasets
     disp("Multispectral Demosaicking using "+textmethod+", CA= Designed pattern, Dataset= "+ dataset);
     Xrec(Xrec(:)<0) = 0;
     %% Compute metrics
-    X = mat2gray(X);
+    %X = mat2gray(X);
     for i=1:NF
         temp = Xrec(:,:,i);
         Xrec(:,:,i) = Xrec(:,:,i)./max(temp(:));
@@ -110,7 +74,7 @@ for k=1:d % iterave over the datasets
     Xrec = mat2gray(Xrec);
     [p,s,r,sam] = metrics(X,Xrec);
     %% Table of metrics proposed method for each dataset
-    table(k,:) =[p,s,r,sam];
+    table(k,:,1) =[p,s,r,sam];
     XrecBTES(XrecBTES(:)<0) = 0;
     disp("Multispectral Demosaicking using "+ textmethod + ", CA= "+textcode+", Dataset= " + dataset);
     %% Compute metrics
@@ -121,17 +85,13 @@ for k=1:d % iterave over the datasets
     XrecBTES = mat2gray(XrecBTES);
     [p1,s1,r1,sam1] = metrics(X,XrecBTES);
     %% Generate RGB
-    %[RGBrBTES] = Convert2RGB(XrecBTES,NF);
     [RGBrBTES] = RGB_test(XrecBTES);
     %% Table of metrics SOTA for each dataset
-    table2(k,:) = [p1,s1,r1,sam1];
+    table(k,:,2) = [p1,s1,r1,sam1];
     
     %% Generate RGB image from datacube
     [RGB] = RGB_test(X);
     [RGBr] = RGB_test(Xrec);
-    %[RGB] = Convert2RGB(X,NF);
-    %[RGBr] = Convert2RGB(Xrec,NF);
-    
     %% Groundtruth, Proposed method, and SOTA
     if(comparisonRGB ==1)
         subplot(1,3,1),imagesc(RGB),title("Groundtruth ");
@@ -145,7 +105,7 @@ end
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 save(texto,'table','table2')
 disp("Designed");
-mean(table)
+mean(table(:,1,1))
 disp("SOTA");
-mean(table2)
-ComputeFigures();
+mean(table(:,1,2))
+%ComputeFigures();

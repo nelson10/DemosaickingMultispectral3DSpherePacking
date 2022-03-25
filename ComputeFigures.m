@@ -24,15 +24,13 @@ figu = 2;
 if(figu == 1)
     figure1DistanceComparison();
 elseif(figu == 2)
-    figure2Comparison();
-elseif(figu == 3)
-    figure3();
+    figure2PSNRComparison();
+%elseif(figu == 3)
+ %   figure3();
 elseif(figu == 4)
     figure4_simple();
 elseif(figu == 5)
-    NF = 31;
+    NF = 16;
     N = 512;
-    texto = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
-    load(texto);
-    [~]=figure5(N,NF,Go,dist);
+    [~]=figure5(N,NF);
 end
