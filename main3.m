@@ -37,12 +37,11 @@ elseif(NF ==144)
     d = 1;
 end
 
-[textmethod] = checkMethod(method);
-
 if(comparisonRGB ==1)
     figure('Renderer', 'painters', 'Position', [10 10 900 600])
 end
-for i=1;nm
+for i=1:nm
+    [textmethod] = checkMethod(i);
     for c=[2,4,7]
         code = c-1; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
         method = i;
@@ -88,10 +87,10 @@ end
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 save(texto,'table')
 for i=1:nm
+    [textmethod] =checkMethod(i);
+    disp(textmethod);
     for c=1:nc
         [textcode] =checkCode(c-1);
-        disp(textcode);
-        [textcode] =checkMethod(i-1);
         disp(textcode);
         disp(mean(table(:,:,c,i)));
     end
