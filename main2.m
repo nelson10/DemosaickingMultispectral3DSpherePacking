@@ -21,7 +21,7 @@ addpath(genpath('./Pattern'));
 addpath(genpath('./Results'));
 
 %% Parameters
-N = 512; % Spatial resolution
+N = 256; % Spatial resolution
 NF = 16; % Number of bands put 8 or 16
 JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
 d = 32;
@@ -84,6 +84,8 @@ end
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 save(texto,'table')
 for c=1:nc
-    mean(table(:,:,c))
+    [textcode] =checkCode(c-1);
+    disp(textcode);
+    disp(mean(table(:,:,c)));
 end
 %ComputeFigures();
