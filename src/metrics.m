@@ -9,13 +9,13 @@ s = zeros(L,1);
 rm = zeros(L,1);
 m = 2^8-1;
 for i=1:L
-    ref = uint8(data((1+6):(N-6),(1+6):(N-6),i)*m);
-    A = uint8(Xrec((1+6):(N-6),(1+6):(N-6),i)*m);
+    ref = uint8(data(6:505,6:505,i)*m);
+    A = uint8(Xrec(6:505,6:505,i)*m);
     p(i) = psnr(A,ref);
     s(i) = ssim(A,ref);
     v1= Xrec(:,:,i);
     v2= data(:,:,i);
-    rm(i) = sqrt(mean(v1(:)-v2(:)).^2);
+    rm(i) = sqrt(mean((v1(:)-v2(:)).^2));
 end
 
 sa = zeros(M,N);
