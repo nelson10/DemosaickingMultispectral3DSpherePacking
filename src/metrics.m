@@ -13,9 +13,9 @@ for i=1:L
     A = uint8(Xrec((1+6):(N-6),(1+6):(N-6),i)*m);
     p(i) = psnr(A,ref);
     s(i) = ssim(A,ref);
-    %v1= Xrec(:,:,i);
-    %v2= data(:,:,i);
-    rm(i) = sqrt(mean((ref(:)-A(:)).^2));
+    v1 = single(A(:));
+    v2 = single(ref(:));
+    rm(i) = sqrt(immse(v1(:),v2(:)));
 end
 
 sa = zeros(M,N);
