@@ -8,20 +8,30 @@
 
 % Find Optimal values of a and b
 
-function [a,b,ma,G1]=DDDRSNNP3(N,NF)
-M = round(NF/2);
-distance = zeros(M,M);
+function [a,b,ma,G1]=DDDRSNNP4(N,NF)
 x = ones(1,NF)';
 y = (1:NF)';
 I = kron(x',y);
 J = kron(x,y');
 
-for i=1:M
-    for j=i:M
-        G = mod(I.*i + J.*j,NF)+1;
+M = round(NF/2);
+id = 1:M;
+t = zeros(M,1);
+for m = 1:M
+    t(m) = iscoprime([m NF]);
+end
+idx =id(t==1);
+K = length(idx);
+distance = zeros(K,K);
+for i=1:K
+    for j=i:K
+        si = idx(i);
+        sj = idx(j);
+        G = mod(I.*si + J.*sj,NF)+1;
         t = length(unique(G(1:NF,1:NF)));
         if(t == NF)
-            [distance(i,j)]=distan3(G,NF);
+            %[distance(si,sj)]=distan(G);
+            [distance(si,sj)]=distan3(G);
         else
         end
     end

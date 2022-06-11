@@ -14,22 +14,84 @@ if(code == 0)
         A = A(x,:);
         G = A;
     else
-        x = 1:NF;
-        x = x(randperm(length(x)));
-        A(1,:) = x;
-        for i=2:NF
-            temp = x(2:end);
-            A(i,1:end-1) = temp;
-            A(i,end) = x(1);
-            x = A(i,:);
+        %         x = 1:NF;
+        %         x = x(randperm(length(x)));
+        %         A(1,:) = x;
+        %         for i=2:NF
+        %             temp = x(2:end);
+        %             A(i,1:end-1) = temp;
+        %             A(i,end) = x(1);
+        %             x = A(i,:);
+        %         end
+        %         A = A(x,:);
+        for i=1:NF
+            A(i,:) = randperm(NF);
         end
-        A = A(x,:);
         r = ceil(N/NF);
         B = ones(r,r);
         G = kron(B,A);
         G = G(1:N,1:N);
     end
-elseif(NF<=16 && code == 1)
+elseif(code == 1)
+    load('BNCodes_N=512_K=1_rep=1shots=16.mat');
+    C = zeros(N,N);
+    for i=1:NF
+        C = C + gdmd(1:N,1:N,i).*i;
+    end
+    G = C;
+elseif(code == 2)
+    %% % Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
+    %     mk = zeros(N,N,NF);
+    %     for k=1:NF
+    %         for x=1:N
+    %             for y=1:N
+    %                 mk(x,y,k) = (k-1 == (mod(x-1,4) + 4*(mod(y-1,4)))).*k;
+    %             end
+    %         end
+    %     end
+    x = ones(1,N)';
+    y = (1:N)';
+    I = kron(x',y);
+    J = kron(x,y');
+    G = zeros(N,N);
+    NF2 = floor(sqrt(NF));
+    for k=1:NF
+        G = G + (k-1 == (mod(I-1,NF2) + NF2*(mod(J-1,NF2)))).*k;
+    end
+    %imagesc(G==1)
+    %G=sum(mk,3);
+    %imagesc(G-mk1)
+elseif(code == 3)
+    A = [1,2,3,4;5,6,7,8;9,10,11,12;13,14,15,16]; % Sequencial
+    B = ones(N/4,N/4);
+    G = kron(B,A);
+elseif(code == 4)
+    % H. K. Aggarwal and A. Majumdar, "Single-sensor multi-spectral image demosaicing algorithm using learned interpolation weights," 2014 IEEE Geoscience and Remote Sensing Symposium, 2014, pp. 2011-2014, doi: 10.1109/IGARSS.2014.6946857.
+    A = zeros(NF,NF);
+    for i=1:NF
+        A(i,:) = circshift(1:NF,-(i-1)); % Uniform (Aggarwal)
+    end
+    p = ceil(N/NF);
+    B = ones(p,p);
+    G = kron(B,A);
+    G = G(1:N,1:N);
+elseif(code == 5)
+    if(NF==16)
+        A = [7,8,6,5;15,16,14,13;11,12,10,9;3,4,2,1]; % IMEC
+        B = ones(N/4,N/4);
+        G = kron(B,A);
+    elseif(NF==25)
+        A = [19 20 18 17 2;
+            11 12 10 9 3;
+            7,8,6,5 4;
+            23,24,22,21,1;
+            15,16,14,13,25]; % IMEC
+        r = ceil(N/5);
+        B = ones(r,r);
+        tp = kron(B,A);
+        G = tp(1:N,1:N);
+    end
+elseif(NF<=16 && code == 6)
     %% BTES(5-16)
     if(NF ==5)
         A = [1 5 2 5;4 3 4 3;2 5 1 5;4 3 4 3]; % BTES5
@@ -58,46 +120,11 @@ elseif(NF<=16 && code == 1)
     end
     B = ones(N/4,N/4);
     G = kron(B,A);
-elseif(code == 2)
-    %% % Brauers, Johannes, and Til Aach. "A color filter array based multispectral camera." 12. Workshop Farbbildverarbeitung. Ilmenau, 2006.
-    %     mk = zeros(N,N,NF);
-    %     for k=1:NF
-    %         for x=1:N
-    %             for y=1:N
-    %                 mk(x,y,k) = (k-1 == (mod(x-1,4) + 4*(mod(y-1,4)))).*k;
-    %             end
-    %         end
-    %     end
-    x = ones(1,N)';
-    y = (1:N)';
-    I = kron(x',y);
-    J = kron(x,y');
-    G = zeros(N,N);
-    NF2 = floor(sqrt(NF));
-    for k=1:NF
-        G = G + (k-1 == (mod(I-1,NF2) + NF2*(mod(J-1,NF2)))).*k;
-    end
-    %imagesc(G==1)
-    %G=sum(mk,3);
-    %imagesc(G-mk1)
-elseif(code == 3)
-    A = [1,2,3,4;5,6,7,8;9,10,11,12;13,14,15,16]; % Sequencial
-    B = ones(N/4,N/4);
-    G = kron(B,A);
-elseif(code == 4) 
-    % H. K. Aggarwal and A. Majumdar, "Single-sensor multi-spectral image demosaicing algorithm using learned interpolation weights," 2014 IEEE Geoscience and Remote Sensing Symposium, 2014, pp. 2011-2014, doi: 10.1109/IGARSS.2014.6946857.
-    A = zeros(NF,NF);
-    for i=1:NF
-        A(i,:) = circshift(1:NF,-(i-1)); % Uniform (Aggarwal)
-    end
-    p = ceil(N/NF);
-    B = ones(p,p);
-    G = kron(B,A);
-    G = G(1:N,1:N);
-elseif(code == 5)
-    A = [7,8,6,5;15,16,14,13;11,12,10,9;3,4,2,1]; % IMEC
-    B = ones(N/4,N/4);
-    G = kron(B,A);
-elseif(code == 6)
+elseif(code == 7)
     [~,~,~,G]=DDDRSNNP3(N,NF);
+%     [~,~,~,A]=DDDRSNNP(NF);
+%     r = ceil(N/5);
+%     B = ones(r,r);
+%     tp = kron(B,A);
+%     G = tp(1:N,1:N);
 end

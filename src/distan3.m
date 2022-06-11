@@ -6,12 +6,11 @@
 % Solution using the Discrete Sphere Packing based on 3D N^2 Queens
 % Approach
 
-function [res]=distan3(G)
+function [res]=distan3(G,NF)
 %% 3D statistics
 [~,N]= size(G);
-%L = round(sqrt(N));
 L = N;
-%L = max(G(:));
+%L = round(sqrt(N));
 G = G(1:L,1:L);
 [r,c,z] = find(G);
 B = [r c z];
@@ -19,18 +18,21 @@ T = zeros(L,L);
 D = pdist(B);
 dist =squareform(D);
 for i=1:L^2
-    [~,~,values]=find(dist(i,:));
-    T(r(i),c(i)) = min(values);
+    [~,~,values] = find(dist(i,:));
+    T(i) = min(values);
+    %temp = dist(i,:);
+    %T(r(i),c(i)) = min(temp(temp>0));
 end
-%b = min(dist(dist>0));
-%res = b;
-bmax = max(T(:));
-bmin = min(T(:));
-if(bmax==bmin)
+if(NF~=16)
+    bmin = min(T(:)); % reach d=3 and density=0.5 although allowing non-uniform
     res = bmin;
-else
-    res = 0;
+elseif(NF==16)
+    bmin = min(T(:)); % reach d=2.45 and density=0.4 promotes uniformity an avoids non-uniform solution
+    bmax = max(T(:));
+    if(bmax==bmin)
+        res = bmin;
+    else
+        res = 0;
+    end
 end
 end
-
-

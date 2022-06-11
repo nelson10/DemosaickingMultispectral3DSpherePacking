@@ -14,6 +14,8 @@ elseif(method ==6)
 elseif(method ==7)
     textmethod="SpectralDifference(SD)";  % Spectral Difference(SD)
 elseif(method ==8)
-    textmethod="IterativeSpectralDifference(ItSD)";  % Iterative Spectral Difference(SD)
+    textmethod="IterativeSpectralDifference(ItSD)";  % Iterative Spectral Difference(ItSD)
+elseif(method ==9)
+    textmethod="PseudoPanchromaticImageDifference";  % Pseudo Panchromatic Image Difference
 end
 end

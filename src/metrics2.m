@@ -1,16 +1,12 @@
-function [p,s,r,sam] = metrics(data,Xrec,kdataset) %1 for cave dataset
+function [p,s,r,sam,sa] = metrics2(data,Xrec)
 [M,N,L] = size(Xrec);
+
 p = zeros(L,1);
 s = zeros(L,1);
 rm = zeros(L,1);
 for i=1:L
-    if(kdataset==1 || kdataset==2)
-        % ref = uint8(data((1+6):(N-6),(1+6):(N-6),i)*m);
-        % A = uint8(Xrec((1+6):(N-6),(1+6):(N-6),i)*m);
-        % elseif(kdataset==2)
-        ref = data(:,:,i);
-        A = Xrec(:,:,i);
-    end
+    ref = data((1+6):(N-6),(1+6):(N-6),i);
+    A = Xrec((1+6):(N-6),(1+6):(N-6),i);
     p(i) = psnr(A,ref);
     s(i) = ssim(A,ref);
     v1 = double(A(:));
@@ -25,7 +21,8 @@ for n=1:N
         v2 = data(m,n,:);
         v1 = double(v1(:));
         v2 = double(v2(:));
-        sa(m,n) = real(SpectralAngleMapper(v1,v2+eps));
+        sa(m,n) = real(SpectralAngleMapper(v1,v2));
+        %tp(m,n) = isreal(sa(m,n));
     end
 end
 
