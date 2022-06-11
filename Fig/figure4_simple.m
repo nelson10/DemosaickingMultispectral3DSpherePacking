@@ -3,6 +3,8 @@
 % Date 2 February 2022
 
 close all
+%fig=figure(1);
+fig = figure('Renderer', 'painters', 'Position', [10 10 1500 1200]);
 fontsize = 16;
 x = [2:11 16 25].^2;
 x = [x 1372 2048 4000 6912 10976 14896 21438 29660 39754 51912 66326 83188 108000 131072 1024192 4100625];
@@ -33,12 +35,15 @@ set(gca,'FontSize',fontsize)
 nf = length(dent);
 loglog(x(1:nf),dent(1:nf),'-r','MarkerFaceColor','r','MarkerSize',18,'LineWidth',3)
 axis([10 10^6 0 0.77])
-title('Density of Spheres in a (N_x+1)^3 Cube ', 'FontSize', fontsize)
-xlabel('Number of Spheres ', 'FontSize', fontsize)
+title('Density of Spheres in a (M+1)^3 Cube ', 'FontSize', fontsize)
+xlabel('V ', 'FontSize', fontsize)
 ylabel('Density ', 'FontSize', fontsize)
-legend('Upper bound (theoretical)','Optimized (Discrete)','Best sphere packing (Continuous)','LineWidth',2,'location','southeast','FontSize', 16)
+legend('\rho^*[V] Upper bound (theoretical)','\rho_i[V] Optimized (Integer)','\rho_c[V] Best sphere packing (Continuous)','LineWidth',2,'location','southeast','FontSize', 16)
 %saveas(gcf,'figure4','epsc')
 set(gcf, 'PaperPosition', [0 0 9 7]); %Position plot at left hand corner with width 5 and height 5.
 set(gcf, 'PaperSize', [9 7]); %Set the paper to have width 5 and height 5.
-pbaspect([1 1 1])
-saveas(gcf,'figure4','pdf')
+%pbaspect([1 1 1])
+%saveas(gcf,'figure1','pdf')
+%orient(fig,'landscape')
+%print(fig,'figure_1.png','-dpng','-r400')
+print(fig,'figure_1.eps','-depsc','-r400')

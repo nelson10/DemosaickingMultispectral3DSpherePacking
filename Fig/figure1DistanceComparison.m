@@ -9,13 +9,14 @@ clear;
 close all
 clc
 N = 512;
-NF = 31;
-code = 0; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
+NF = 16;
+code = 3; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
 C = zeros(N,N,NF);
 % ti = "Pattern/optimalPattern_"+num2str(N)+"x"+num2str(N)+"_filter="+num2str(NF)+".mat";
 % load(ti);
 % G = Go;
-[a,b,ma,G]=DDDRSNNP3(N,NF);
+[a,b,dist,G]=DDDRSNNP3(N,NF);
+[density]= ComputeDensity(dist,NF);
 
 for i=1:NF
     C(:,:,i)=(G==i);
@@ -39,7 +40,7 @@ text = "Pattern/design-mask_optimize_"+num2str(N)+"x"+num2str(N)+"NF="+num2str(N
 stand = std(T(:));
 prom = mean(T(:));
 %texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
-texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m);
+texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m)+" Density "+num2str(density);
 subplot(2,2,2),imagesc(T),title(texto, 'FontSize', 14), colorbar;
 pbaspect([1 1 1])
 
@@ -63,20 +64,28 @@ elseif(code ==4)
 elseif(code ==5)
     textcode ="IMEC";
     [G] = codedPatterns(N,NF,code);
+elseif(code ==6)
+    textcode ="SpherePacking";
+    [G] = codedPatterns(N,NF,code);
+elseif(code ==7)
+    textcode ="BlueNoise";
+    [G] = codedPatterns(N,NF,code);
 end
 for i=1:NF
     C(:,:,i) = G==i;
 end
+%G(1:16,1:16)
 subplot(2,2,3),imagesc(G(1:N,1:N)),colormap('gray'),title(textcode+num2str(NF)+" code", 'FontSize', 14), colorbar;
 pbaspect([1 1 1])
 colormap('jet')
 [T] = distance(G);
 m = max(T(:));
 minimum = min(T(:));
+[density]= ComputeDensity(minimum,NF);
 text = "Pattern/CA="+textcode+num2str(N)+"x"+num2str(N)+"NF="+num2str(NF);
 save(text,'C','G','minimum');
 stand = std(T(:));
 prom = mean(T(:));
-texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m);% + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
+texto = "Minimum = " + num2str(minimum) + ", Maximun = " + num2str(m) +" Density "+num2str(density);% + ", Standart Desv = " + num2str(stand) + ", Mean = " + num2str(prom);
 subplot(2,2,4),imagesc(T),title(texto, 'FontSize', 14), colorbar;
 pbaspect([1 1 1])

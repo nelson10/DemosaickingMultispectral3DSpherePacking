@@ -26,12 +26,15 @@ ylabel('Reconstruction Quality','FontSize',fontsize)
 hold on;
 grid on;
 for i=1:7
+    if(i~=5)
     plot(table(:,1,i),'LineWidth',1.5)
     pbaspect([4 2 1])
     hold on;
     grid on;
     [textcode(i)] =checkCode(i-1);
     disp(textcode(i))
-    mean(table(:,:,i))
+    disp(mean(table(:,:,i)));
+    end
 end
-legend(textcode(1)+num2str(NF),textcode(2)+num2str(NF),textcode(3)+num2str(NF),textcode(4)+num2str(NF),textcode(5)+num2str(NF),textcode(6)+num2str(NF),textcode(7)+num2str(NF),'FontSize',fontsize);
+%legend(textcode(1)+num2str(NF),textcode(2)+num2str(NF),textcode(3)+num2str(NF),textcode(4)+num2str(NF),textcode(5)+num2str(NF),textcode(6)+num2str(NF),textcode(7)+num2str(NF),'FontSize',fontsize);
+legend(textcode(1)+num2str(NF),textcode(2)+num2str(NF),textcode(3)+num2str(NF),textcode(4)+num2str(NF),textcode(6)+num2str(NF),textcode(7)+num2str(NF),'FontSize',fontsize);

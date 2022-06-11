@@ -25,8 +25,8 @@ plot(table(:,1,2),'-b','LineWidth',1.5)
 hold on;
 grid on;
 
-[textcode1] =checkCode(1);
-[textcode2] =checkCode(6);
+[textcode1] =checkCode(1); % BTES
+[textcode2] =checkCode(6); % Sphere packing
 texto = textcode1+" Against "+textcode2;
 xlabel('Dataset','FontSize',fontsize)
 ylabel('Reconstruction Quality','FontSize',fontsize)
