@@ -7,10 +7,11 @@ function [NF]=figure55(N,NF)
 %NF = 9;
 %N = 256;
 
-%fig = figure(1);
-fig = figure('Renderer', 'painters', 'Position', [10 10 1500 1200]);
+
+%fig = figure('Renderer', 'painters', 'Position', [10 10 1500 1200]);
 set(groot, 'defaultFigureUnits', 'centimeters', 'defaultFigurePosition', [0 0 100.86 30.8]);
 fontsize = 16;
+fig=figure(1);
 
 for i=1:8
     code = i-1; % 2 Brauers, 4 Uniform
@@ -31,9 +32,6 @@ for i=1:8
     set(gca,'FontSize',fontsize)
 end
 orient(fig,'landscape')
-set(gcf, 'PaperPosition', [0 0 18 10]); %Position plot at left hand corner with width 5 and height 5.
-set(gcf, 'PaperSize', [18 10]); %Set the paper to have width 5 and height 5.
-
 
 %print(fig,'figure1.png','-dpng','-r400') 
 print(fig,'figure1.eps','-depsc','-r400')
