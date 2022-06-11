@@ -18,6 +18,7 @@ addpath(genpath('./codes'));
 addpath(genpath('./RGB'));
 addpath(genpath('./src'));
 addpath(genpath('./Fig'));
+addpath(genpath('./Dataset'));
 addpath(genpath('./Pattern'));
 addpath(genpath('./Results'));
 addpath(genpath('./Real-data'));
