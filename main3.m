@@ -24,32 +24,39 @@ addpath(genpath('./Results'));
 N = 256; % Spatial resolution
 NF = 16; % Number of bands put 8 or 16
 JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
-d = 32;
-nc = 7;
-nm = 8;
-table =zeros(d,4,nc,nm); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
+realdata = 0;
+kdataset = 1; %Cave dataset
+m = [6,2,8,7,3,5,4];
+cc = [5,1,2,3,4,6,7,8];
+nc = length(cc);
+nm = length(m);
 comparisonRGB = 0; % 1 Show Groundtruth and Reconstructions, 0 it shows nothing
-method = 6; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods, 6 Iterative Nearby Channel Difference(ItNCD), 7 Spectral Difference(SD), 8 Iterative Spectral Difference(SD)
 
-if (NF <= 31)
-    d = 32; % Select the dataset (Numbers between 1 and 15)
-elseif(NF ==144)
-    d = 1;
+if(kdataset==1)
+    if (NF <= 31)
+        d = 32; % Select the dataset (Numbers between 1 and 32)
+    elseif(NF ==144)
+        d = 1;
+    end
+elseif(kdataset==2)
+    d = 30;
 end
+
+table =zeros(d,4,nc,nm); %  PSNR, SSIM, RMSE, SAM of Sphere Packing based Coded Aperture
 
 if(comparisonRGB ==1)
     figure('Renderer', 'painters', 'Position', [10 10 900 600])
 end
+
+
 for i=1:nm
-    [textmethod] = checkMethod(i);
-    for c=[2,4,7]
-        code = c-1; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
-        method = i;
+    method = m(i);
+    [textmethod] = checkMethod2(method);
+    for c=1:nc
+        code = cc(c)-1; % 0 Random, 1 Binary Tree-based edge-sensing (BTES), 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC
         [G] = codedPatterns(N,NF,code);
-        [textcode] =checkCode(code);
-        
+        [textcode] =checkCode2(code);
         for k=1:d % iterave over the datasets
-            
             disp("Dataset="+num2str(k));
             disp("---------------------------------------------------------------------------------------------------------")
             if(NF <= 31)
@@ -60,14 +67,13 @@ for i=1:nm
             end
             
             %% Reconstruction using Sphere Packing based Coded Aperture
-            [Xrec,X]= Reconstruction(dataset,G,NF,JC,method);
-            disp("Multispectral Demosaicking using "+textmethod+", CA= Designed pattern, Dataset= "+ dataset);
+            %[Xrec,X]= Reconstruction(dataset,G,NF,JC,method);
+            [Xrec,X] = sampling(dataset,G,NF,JC,method,kdataset,k,code,realdata);
+            disp("Multispectral Demosaicking using "+textmethod+", CA="+textcode+", Dataset= "+ dataset);
             
             %% Compute metrics
-            X = mat2gray(X);
-            [Xrec]= normalizeCube(Xrec,NF);
-            [p,s,r,sam] = metrics(X,Xrec);
-            table(k,:,c,i) =[p,s,r,sam];
+            [p,s,r,sam] = metrics(X,Xrec,kdataset);
+            table(k,:,cc(c),m(i)-1) =[p,s,r,sam];
             
             %% Groundtruth, Proposed method, and SOTA
             if(comparisonRGB ==1)
@@ -86,13 +92,14 @@ for i=1:nm
 end
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
 save(texto,'table')
-for i=1:nm
-    [textmethod] =checkMethod(i);
-    disp(textmethod);
-    for c=[2,4,7]
-        [textcode] =checkCode(c-1);
-        disp(textcode);
-        disp(mean(table(:,:,c,i)));
+    for i=1:nm
+        [textmethod] =checkMethod(m(i));
+        disp(textmethod);
+        for c=1:nc
+            [textcode] =checkCode2(cc(c)-1);
+            disp(textcode);
+            res = std((table(:,:,cc(c),m(i)-1)));
+            disp(round(res,2));
+        end
     end
-end
 %ComputeFigures();

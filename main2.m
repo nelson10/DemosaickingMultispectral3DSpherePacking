@@ -21,8 +21,8 @@ addpath(genpath('./Pattern'));
 addpath(genpath('./Results'));
 
 %% Parameters
-N = 256; % Spatial resolution
-NF = 16; % Number of bands put 8 or 16
+N = 512; % Spatial resolution
+NF = 25; % Number of bands put 8 or 16
 JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
 d = 32;
 nc = 7;
