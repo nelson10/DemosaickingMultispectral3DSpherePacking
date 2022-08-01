@@ -18,6 +18,7 @@ addpath(genpath('./RGB'));
 addpath(genpath('./src'));
 addpath(genpath('./Fig'));
 addpath(genpath('./Pattern'));
+addpath(genpath('./Real-data'));
 addpath(genpath('./Results'));
 addpath(genpath('./Test1'));
 addpath(genpath('./Test'));
@@ -27,9 +28,9 @@ N = 256; % Spatial resolution
 NF = 16; % Number of bands put 8 or 16
 JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation,%
 d = 32;
-Fontsize = 15;
+Fontsize = 16;
 
-code = 6; % 0 Random, 1 blue noise, 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC,  6 Binary Tree-based edge-sensing (BTES), 7 Sphere packing
+code = 7; % 0 Random, 1 blue noise, 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC,  6 Binary Tree-based edge-sensing (BTES), 7 Sphere packing
 comparisonRGB = 1; % 1 Show Groundtruth and Reconstructions, 0 it shows nothing
 method = 6; % 1 Convolution Filter (CF), 2 Iterative Intensity Difference (IID), 3 Intensity Difference (ID), 4 Weighted Billinear Method, 5  Scattered data interpolation methods, 6 Iterative Nearby Channel Difference(ItNCD), 7 Spectral Difference(SD), 8 Iterative Spectral Difference(SD)
 nc = 2;
@@ -84,7 +85,9 @@ for l=1:nd % iterave over the datasets
             %% Generate RGB image from datacube
             [RGB] = RGB_test(X);
             nexttile
-            imagesc(RGB),title("Groundtruth ",'fontsize',Fontsize),axis off,pbaspect([1 1 1]);
+            imagesc(RGB);%,title("Groundtruth ",'fontsize',Fontsize,'Fontname','Times'),
+            axis off;
+            pbaspect([1 1 1]);
         end
         [textmethod] = checkMethod2(method);
         %% Table of metrics proposed method for each dataset
@@ -102,7 +105,8 @@ for l=1:nd % iterave over the datasets
         %if(comparisonRGB ==1)
         %subplot(nd,J+1,((l-1)*(J+1))+j+1),
         nexttile
-        imagesc(RGBrBTES),axis off,pbaspect([1 1 1]), title(textmethod +", PSNR=" + num2str(p1)+"dB",'fontsize',Fontsize); %SAM= "+num2str(sam1)
+        imagesc(RGBrBTES),axis off,pbaspect([1 1 1]), %title(textmethod +", PSNR=" + num2str(p1)+"dB",'fontsize',Fontsize,'Fontname','Times'); %SAM= "+num2str(sam1)
+        text(2,8,"PSNR=" + num2str(round(p1,2)) + " dB",'Color','white','FontSize',Fontsize,'Fontname','Times');
     end
     %subplot(nd,J+1,((l-1)*(J+1))+1),
     

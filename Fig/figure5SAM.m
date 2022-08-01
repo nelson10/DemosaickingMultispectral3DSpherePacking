@@ -29,7 +29,7 @@ JC = 0; % 1 to use spectral correlation, 0 to avoid spectral correlation
 d = 32;
 kdataset = 1; % 1 Cave
 realdata = 0;
-Fontsize = 16;
+Fontsize = 8;
 
 code = 6; % 0 Random, 1 blue noise, 2 (Brauers and Aach, 2006), 3 Sequential, 4 Uniform, 5 IMEC,  6 Binary Tree-based edge-sensing (BTES), 7 Sphere packing
 comparisonRGB = 1; % 1 Show Groundtruth and Reconstructions, 0 it shows nothing
@@ -47,7 +47,7 @@ end
 %[Go] = codedPatterns(N,NF,code);
 if(comparisonRGB ==1)
     fig=figure('Renderer', 'painters', 'Position', [10 10 1500 1200]);
-    set(gca,'FontSize',Fontsize)
+    set(gca,'FontSize')
 end
 
 %kk = [7,7,4,4,31,31]+1;
@@ -86,7 +86,9 @@ for l=1:nd % iterave over the datasets
             %% Generate RGB image from datacube
             [RGB] = RGB_test(X);
             nexttile
-            imagesc(RGB),title("Groundtruth ",'fontsize',Fontsize),axis off,pbaspect([1 1 1]);
+            imagesc(RGB);
+            %title("Groundtruth ",'fontsize',Fontsize,'Fontname','Times'),
+            axis off,pbaspect([1 1 1]);
         end
         [textmethod] = checkMethod2(method);
         %% Table of metrics proposed method for each dataset
@@ -98,7 +100,9 @@ for l=1:nd % iterave over the datasets
         table(k,:,2) = [p1,s1,r1,sam1];
         %% Groundtruth, Proposed method, and SOTA
         nexttile
-        imagesc(sa((1+6):(N-6),(1+6):(N-6),j,l)),axis off,pbaspect([1 1 1]), title(textmethod +", SAM= " + num2str(sam1),'fontsize',Fontsize); %SAM= "+num2str(sam1)
+        imagesc(sa((1+6):(N-6),(1+6):(N-6),j,l)),axis off,pbaspect([1 1 1]);
+        text(4,12,"SAM=" + num2str(round(sam1,2)),'Color','white','FontSize',Fontsize,'Fontname','Times');
+        %title(textmethod +", SAM= " + num2str(sam1),'fontsize',Fontsize,'Fontname','Times'); %SAM= "+num2str(sam1)
     end
 end
 
@@ -111,7 +115,8 @@ h.YLabel.Visible = 'on';
 %title(h,'title');
 minColorLimit = min(min(min(sa(:))));                   % determine colorbar limits from data
 maxColorLimit = max(max(max(sa(:))));
-c = colorbar(h,'Position',[0.95 0.168 0.022 0.7]);  % attach colorbar to h
+c = colorbar(h,'Position',[0.95 0.168 0.022 0.7],'FontSize',Fontsize,'Fontname','Times');  % attach colorbar to h
+%c = colorbar(h,'southoutside');
 colormap(c,'jet')
 caxis(h,[minColorLimit,maxColorLimit]);             % set colorbar limits
 texto = "Results/results_NF="+num2str(NF)+"_N="+num2str(N)+"_Coded_Aperture="+textcode+"_Method="+textmethod+"_datasetsize="+d+".mat";
