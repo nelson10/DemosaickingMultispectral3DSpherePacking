@@ -12,7 +12,7 @@ for i=1:numel(G)
     % Translate sphere to new location.
     %offset = r(i), c(i), z1(i);
     % Plot as surface.
-    surf(x+r(i),y+c(i),z+z1(i)) %,markerColors(z1(i),:)
+    surf(x+r(i),y+c(i),z+z1(i),'FaceColor', C(z1(i),:)) 
     pbaspect([1 1 1])
     % Label axes.
     xlabel('X', 'FontSize', fontsize);
