@@ -23,16 +23,18 @@ for i=1:L^2
     %temp = dist(i,:);
     %T(r(i),c(i)) = min(temp(temp>0));
 end
-if(NF~=16)
+% if(NF~=16)
+%     bmin = min(T(:)); % reach d=3 and density=0.5 although allowing non-uniform
+%     res = bmin;
+% elseif(NF==16)
+%     bmin = min(T(:)); % reach d=2.45 and density=0.4 promotes uniformity an avoids non-uniform solution
+%     bmax = max(T(:));
+%     if(bmax==bmin)
+%         res = bmin;
+%     else
+%         res = 0;
+%     end
+% end
     bmin = min(T(:)); % reach d=3 and density=0.5 although allowing non-uniform
     res = bmin;
-elseif(NF==16)
-    bmin = min(T(:)); % reach d=2.45 and density=0.4 promotes uniformity an avoids non-uniform solution
-    bmax = max(T(:));
-    if(bmax==bmin)
-        res = bmin;
-    else
-        res = 0;
-    end
-end
 end
