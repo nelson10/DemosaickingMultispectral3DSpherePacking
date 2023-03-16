@@ -19,8 +19,12 @@ load('illum_6500.mat');
 l=round(linspace(1,33,L));
 for i=1:L
     if(realdata ==0)
-        J(:,:,i) = double(X(:,:,i)).*(mask==i);
-        T(:,:,i) = (mask==i);
+        %if(multiplexed==0)
+            J(:,:,i) = double(X(:,:,i)).*(mask==i);
+            T(:,:,i) = (mask==i);
+        %else
+
+        %end
     else
         J(:,:,i) = double(X(:,:,i)).*T(:,:,i)*0.1*illum_6500(l(i));
     end
@@ -45,14 +49,14 @@ elseif(JC ==0 & method ~= 10)
 end
 
 if(method==10 & code==7)
-    [dataset] = textDataset(kdataset,k,L);
+    [dataset] = textScene(kdataset,k,L);
     n = 1;
     dataset = strcat(dataset,num2str(n));
     load(dataset);
     pic(pic(:)<0) = 0;
     Xrec = uint8(pic);
 elseif(method==10 & code==6)
-    [dataset] = textDataset(kdataset,k,L);
+    [dataset] = textScene(kdataset,k,L);
     n = 2;
     dataset = strcat(dataset,num2str(n));
     load(dataset);
