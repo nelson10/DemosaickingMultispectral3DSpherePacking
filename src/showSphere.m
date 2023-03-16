@@ -12,17 +12,10 @@ for i=1:numel(G)
     % Translate sphere to new location.
     %offset = r(i), c(i), z1(i);
     % Plot as surface.
+    C =colormap(jet(max(z1)));
     surf(x+r(i),y+c(i),z+z1(i),'FaceColor', C(z1(i),:)) 
     pbaspect([1 1 1])
     % Label axes.
-    xlabel('X', 'FontSize', fontsize);
-    ylabel('Y', 'FontSize', fontsize);
-    zlabel('\lambda', 'FontSize', fontsize);
-    axis equal;
     hold on
 end
-colormap jet;
-view(40,35)
-%view(0,90)
-grid on;
 end
