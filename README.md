@@ -4,11 +4,11 @@ This repository contains the code to reproduce the results presented in the pape
 
 *N. Diaz, A. Alvarado, P. Meza, F. Guzman and E. Vera, "Multispectral Filter Array Design by Optimal Sphere Packing," in Transaction on Image Processing, 2023.
 
-This repository aims to design the coded apertures for multispectral demosaicking. The reconstruction is performed using the captured compressive projection using interpolation method.
+This repository aims to design the multispectral filter array using sphere packing approach. The reconstruction is performed using the captured compressive projection using interpolation method, demosaicking methods and methods based deep learning.
 
 ## Usage
 
-This code was written using Matlab R2020b. It should be downloaded the RollingShutterCodedAperture repository
+This code was written using Matlab R2022a. It should be downloaded the DemosaickingMultispectral repository
 1. Download this repository via git 
 ```
 git clone https://github.com/nelson10/DemosaickingMultispectral.git
