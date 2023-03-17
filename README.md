@@ -2,7 +2,7 @@
 
 This repository contains the code to reproduce the results presented in the paper following paper:
 
-*A. Alvarado, N. Diaz, P. Meza and E. Vera, "Multispectral mosaic design using a spherepacking filter array," in Optics Express, 2022.
+*N. Diaz, A. Alvarado, P. Meza, F. Guzman and E. Vera, "Multispectral Filter Array Design by Optimal Sphere Packing," in Transaction on Image Processing, 2023.
 
 This repository aims to design the coded apertures for multispectral demosaicking. The reconstruction is performed using the captured compressive projection using interpolation method.
 
