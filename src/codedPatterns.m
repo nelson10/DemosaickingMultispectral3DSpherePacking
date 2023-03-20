@@ -1,9 +1,10 @@
 function [G,ma] = codedPatterns(N,NF,code)
 if(code == 0)
+    randomNumber  = 6;
     %% Load SOTA Random Coded Aperture
     if(NF == N)
         x = 1:NF;
-        rng(1);
+        rng(randomNumber);
         x = x(randperm(length(x)));
         A(1,:) = x;
         for i=2:NF
@@ -15,7 +16,7 @@ if(code == 0)
         A = A(x,:);
         G = A;
     else
-        rng(1);
+        rng(randomNumber);
         for i=1:NF
             A(i,:) = randperm(NF);
         end
