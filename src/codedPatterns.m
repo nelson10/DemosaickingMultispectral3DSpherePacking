@@ -1,8 +1,9 @@
-function [G] = codedPatterns(N,NF,code)
+function [G,ma] = codedPatterns(N,NF,code)
 if(code == 0)
     %% Load SOTA Random Coded Aperture
     if(NF == N)
         x = 1:NF;
+        rng(1);
         x = x(randperm(length(x)));
         A(1,:) = x;
         for i=2:NF
@@ -14,16 +15,7 @@ if(code == 0)
         A = A(x,:);
         G = A;
     else
-        %         x = 1:NF;
-        %         x = x(randperm(length(x)));
-        %         A(1,:) = x;
-        %         for i=2:NF
-        %             temp = x(2:end);
-        %             A(i,1:end-1) = temp;
-        %             A(i,end) = x(1);
-        %             x = A(i,:);
-        %         end
-        %         A = A(x,:);
+        rng(1);
         for i=1:NF
             A(i,:) = randperm(NF);
         end
@@ -121,7 +113,8 @@ elseif(NF<=16 && code == 6)
     B = ones(N/4,N/4);
     G = kron(B,A);
 elseif(code == 7)
-    [~,~,~,G]=DDDRSNNP3(N,NF);
+    [a,b,ma,G]=DDDRSNNP3(N,NF);
+    %[a,b,ma,G]=DDDRSNNP(N,NF);
 %     [~,~,~,A]=DDDRSNNP(NF);
 %     r = ceil(N/5);
 %     B = ones(r,r);
