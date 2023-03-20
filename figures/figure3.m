@@ -16,20 +16,29 @@ cd = [0 1 2 3 4 5 6 7];
 N = 512; % Spatial resolution
 NF = 16; % Number of filters
 
-figure(3)
+fig = figure(3);
+x = ["                      (a)                          ","                      (b)                          ","                      (c)                          ","                      (d)                          ","                      (e)                          ","                      (f)                          ","                          (g)                           ","                          (h)                          "];
 t = tiledlayout(2,4,'TileSpacing','Compact','Padding','Compact');
+set(gca,'XColor', 'none','YColor','none')
+set(gca,'visible','off')
 for i=1:8
     code = cd(i); % 2 Brauers, 4 Uniform
     [G] = codedPatterns(N,NF,code);
     [textcode] =checkCode2(code);
-    G = G(1:50,1:50);
+    G = G(1:NF,1:NF);
     [T] = distance(G);
     minimum = min(T(:));
     radius = minimum/2;
-    [density]= ComputeDensity(minimum,NF);
+    [density]= ComputeDensity(minimum,NF,G);
     density = round(density,2);
     minimum = round(minimum,2);
     nexttile
-    imagesc(G(1:NF,1:NF)),title(textcode, 'FontSize', 14), axis off, colormap("jet");
+    imagesc(G(1:NF,1:NF)),title(textcode, 'FontSize', 14),colormap("jet");
+    xticks([])
+    yticks([])
+    xlabel(['',x(i)], 'FontSize', fontsize,'Fontname','Times');
+    grid off;
+    hold on;
     pbaspect([1 1 1])
 end
+print(fig,'figure3.eps','-depsc','-r400')
