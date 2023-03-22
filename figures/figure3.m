@@ -11,16 +11,16 @@ addpath(genpath('./Results'));
 addpath(genpath('./Pattern'));
 addpath(genpath('./src'));
 
-fontsize = 14;
+fontsize = 18;
 cd = [0 1 2 3 4 5 6 7];
 N = 512; % Spatial resolution
 NF = 16; % Number of filters
 
+set(groot, 'defaultFigureUnits', 'centimeters', 'defaultFigurePosition', [0 0 100.86 30.8]);
 fig = figure(3);
 x = ["                      (a)                          ","                      (b)                          ","                      (c)                          ","                      (d)                          ","                      (e)                          ","                      (f)                          ","                          (g)                           ","                          (h)                          "];
 t = tiledlayout(2,4,'TileSpacing','Compact','Padding','Compact');
-set(gca,'XColor', 'none','YColor','none')
-set(gca,'visible','off')
+
 for i=1:8
     code = cd(i); % 2 Brauers, 4 Uniform
     [G] = codedPatterns(N,NF,code);

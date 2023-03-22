@@ -62,4 +62,4 @@ set(gcf, 'PaperSize', [9 7]); %Set the paper to have width 5 and height 5.
 %saveas(gcf,'figure1','pdf')
 %orient(fig,'landscape')
 %print(fig,'figure_1.png','-dpng','-r400')
-print(fig,'figure_1.eps','-depsc','-r400')
+print(fig,'figure2.eps','-depsc','-r400')
