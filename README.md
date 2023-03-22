@@ -19,11 +19,11 @@ git clone https://github.com/nelson10/DemosaickingMultispectral.git
 
 ## Datasets
 
-The datasets could be download from the following [link](https://www1.cs.columbia.edu/CAVE/databases/multispectral/)
+1. The datasets could be download from the following [link](https://www1.cs.columbia.edu/CAVE/databases/multispectral/)
 
-The files should be placed in the Dataset folder of this repository.
+2. The files should be placed in the Dataset, Test, and Test1 folder of this repository.
 
-
+3. Run the MainFigures.m files, it computes the figures of the paper from Fig. 2 to 7.
 
 ## Abstract
 
