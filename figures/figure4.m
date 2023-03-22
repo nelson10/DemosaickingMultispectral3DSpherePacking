@@ -22,5 +22,5 @@ addpath(genpath('./Results'));
 
 NF = 16;
 N = 256;
-[~]=figure55(N,NF); % 16 filters
+[~]=figure44(N,NF); % 16 filters
 

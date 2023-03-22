@@ -125,4 +125,5 @@ disp("Designed");
 mean(table(:,1,1))
 disp("SOTA");
 mean(table(:,1,2))
+print(fig,'figure7.eps','-depsc','-r400')
 %ComputeFigures();

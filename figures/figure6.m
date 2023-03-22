@@ -49,7 +49,7 @@ end
 %% Load Designed Coded Apertue
 %[Go] = codedPatterns(N,NF,code);
 if(comparisonRGB ==1)
-    figure('Renderer', 'painters', 'Position', [10 10 1500 1200])
+    fig = figure('Renderer', 'painters', 'Position', [10 10 1500 1200])
     set(gca,'FontSize',Fontsize)
 end
 
@@ -117,4 +117,5 @@ disp("Designed");
 mean(table(:,1,1))
 disp("SOTA");
 mean(table(:,1,2))
+print(fig,'figure6.eps','-depsc','-r400')
 %ComputeFigures();

@@ -21,4 +21,4 @@ clc;
 
 NF = 25;
 N = 256;
-[~]=figure25(N,NF);% 25 filters
+[~]=figure55(N,NF);% 25 filters
