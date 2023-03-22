@@ -9,6 +9,7 @@ fontsize = 18;
 cd = [0 1 2 3 4 5 6 7];
 N = 512; % Spatial resolution
 NF = 16; % Number of filters
+set(groot, 'defaultFigureUnits', 'centimeters', 'defaultFigurePosition', [0 0 100.86 30.8]);
 fig = figure(10)
 
 x = ["                      (a)                          ","                      (b)                          ","                      (c)                          ","                      (d)                          ","                      (e)                          ","                      (f)                          ","                          (g)                           ","                          (h)                          "];
@@ -29,4 +30,4 @@ for i=1:8
     xlabel([x(i)], 'FontSize', fontsize,'Fontname','Times');
     pbaspect([1 1 1])
 end
-print(fig,'figure10.eps','-depsc','-r400')
+print(fig,'figureS2.eps','-depsc','-r400')

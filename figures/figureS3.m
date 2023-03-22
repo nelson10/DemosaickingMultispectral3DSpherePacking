@@ -38,9 +38,9 @@ for i=1:8
     radius = minimum/2;
     [density,diameter]= ComputeDensity(minimum,NF,G);
     density = round(density,2);
-    minimum = round(minimum,2);
+    minimum = diameter;%round(minimum,2);
     nexttile
-    showSphere(G,radius,fontsize);
+    showSphereGeneral(G,radius,fontsize);
     title("d="+num2str(minimum)+" \rho="+num2str(density), 'FontSize', fontsize,'Fontname','Times');
     xlabel([x(i)], 'FontSize', fontsize,'Fontname','Times');
     ylabel('Y', 'FontSize', fontsize,'Fontname','Times');
@@ -54,5 +54,5 @@ for i=1:8
 end
 
 orient(fig,'landscape')
-print(fig,'figure4.eps','-depsc','-r400')
+print(fig,'figureS3.eps','-depsc','-r400')
 

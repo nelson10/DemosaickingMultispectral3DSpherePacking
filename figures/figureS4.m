@@ -40,7 +40,7 @@ for i=1:2
     density = round(density,2);
     minimum = round(minimum,2);
     nexttile
-    showSphere(G,radius,fontsize);
+    showSphereGeneral(G,radius,fontsize);
     title("d="+num2str(minimum)+" \rho="+num2str(density), 'FontSize', fontsize,'Fontname','Times');
     xlabel(['X',x(i)], 'FontSize', fontsize,'Fontname','Times');
     ylabel('Y', 'FontSize', fontsize,'Fontname','Times');
@@ -53,4 +53,4 @@ for i=1:2
     set(gca,'FontSize',fontsize,'Fontname','Times')
 end
 orient(fig,'landscape')
-print(fig,'figure5.eps','-depsc','-r400')
+print(fig,'figureS4.eps','-depsc','-r400')
