@@ -14,10 +14,10 @@ This code was written using Matlab R2022a. It should be downloaded the Demosaick
 git clone https://github.com/nelson10/DemosaickingMultispectral.git
 ```
 2. To run the code use the function main.m that performs the sensing, and the reconstruction using interpolation
-3. Or generateCodedAperture.m that computes the coded aperture using sphere packing approach.
+3. Or MainFigures.m that computes the coded aperture using sphere packing approach.
 
 
-## Datasets
+## Datasets and run file
 
 1. The datasets could be download from the following [link](https://www1.cs.columbia.edu/CAVE/databases/multispectral/)
 
