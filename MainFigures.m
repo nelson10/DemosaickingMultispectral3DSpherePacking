@@ -21,4 +21,5 @@ figure7(); % Fig 7: spectral accuracy
 figureS2();% Fig S2: Coded aperture 1st band, Supplementary material
 figureS3(); % Fig S3: irregular sphere packing 16 filters
 figureS4(); % Fig S4: irregular sphere packing 25 filters
+figureS5(); % Fig S5: Band number position, sphere packing 16 filters
 %figure3fourier(); % % Fig 3: MSFA patterns in Fourier
