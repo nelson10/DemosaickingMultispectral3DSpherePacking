@@ -10,7 +10,7 @@ cd = [0 1 2 3 4 5 6 7];
 N = 512; % Spatial resolution
 NF = 16; % Number of filters
 set(groot, 'defaultFigureUnits', 'centimeters', 'defaultFigurePosition', [0 0 100.86 30.8]);
-fig = figure(8)
+fig = figure(10)
 
 x = ["                      (a)                          ","                      (b)                          ","                      (c)                          ","                      (d)                          ","                      (e)                          ","                      (f)                          ","                          (g)                           ","                          (h)                          "];
 t = tiledlayout(2,4,'TileSpacing','Compact','Padding','Compact');
