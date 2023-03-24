@@ -25,7 +25,7 @@ N = 256;
 
 set(groot, 'defaultFigureUnits', 'centimeters', 'defaultFigurePosition', [0 0 100.86 30.8]);
 fontsize = 18;
-fig=figure(9);
+fig=figure(11);
 x = ["(a)                        ","(b)                        ","(c)                        ","(d)                        ","(e)                        ","(f)                        ","(g)                        ","(h)                        "];
 t = tiledlayout(2,4,'TileSpacing','Compact','Padding','Compact');
 for i=1:8
