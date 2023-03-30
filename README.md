@@ -33,7 +33,16 @@ MSFA design approach for a variety of reconstruction algorithms. Moreover, MSFA-
 
 This repository reproduce the following images.
 
+<br/><img src='/figures/figure2.png'>
+
 <br/><img src='/figures/figure3.png'>
 
 <br/><img src='/figures/figure4.png'>
+
+<br/><img src='/figures/figure5.png'>
+
+<br/><img src='/figures/figure6.png'>
+
+<br/><img src='/figures/figure7.png'>
+
 
