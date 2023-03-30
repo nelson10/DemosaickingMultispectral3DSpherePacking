@@ -23,7 +23,7 @@ git clone https://github.com/nelson10/DemosaickingMultispectral.git
 
 2. The files should be placed in the Dataset, Test, and Test1 folder of this repository.
 
-3. Run the MainFigures.m files, it computes the figures of the paper from figures 2 to 7.
+3. Run the MainFigures.m files, it computes the figures of the paper from figures 2 to 9. Moreover, 
 
 ## Abstract
 
@@ -44,5 +44,9 @@ This repository reproduce the following images.
 <br/><img src='/figures/figure6.png'>
 
 <br/><img src='/figures/figure7.png'>
+
+<br/><img src='/figures/figure8.png'>
+
+<br/><img src='/figures/figure9.png'>
 
 
