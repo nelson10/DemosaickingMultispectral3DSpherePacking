@@ -31,7 +31,7 @@ Multispectral imaging collects a datacube of spatio-spectral information of a sc
 MSFA design approach for a variety of reconstruction algorithms. Moreover, MSFA-OSP notably reduces the appearance of false colors and zipper effect artifacts, often seen when using state-of-the-art demosaicking algorithms. Experiments using synthetic and real data prove that the proposed MSFA-OSP outperforms state-of-the-art MSFAs in terms of spatial and spectral fidelity.
 
 
-This repository reproduce the following images.
+This repository reproduces figures 2-9.
 
 <br/><img src='/figures/figure2.png'>
 
