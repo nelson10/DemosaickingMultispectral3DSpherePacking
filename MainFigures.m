@@ -8,6 +8,7 @@ close all;
 %% Add path to the dataset
 addpath(genpath('./Dataset'));
 addpath(genpath('./figures'));
+addpath(genpath('./Reconstruction'));
 addpath(genpath('./src'));
 
 figure2(); % Fig 2: sphere packing upper bound 
