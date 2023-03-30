@@ -18,8 +18,8 @@ figure5(); % Fig 5: sphere packing 25 filters
 
 figure6(); % Fig 6: spatial accuracy
 figure7(); % Fig 7: spectral accuracy
-figure8();
-figure9();
+figure8(); % Fig 8: spatial accuracy with IMEC spectral response
+figure9(); % Fig 9: spectral accuracy with IMEC spectral response
 %% Suplementary material
 figureS2();% Fig S2: Coded aperture 1st band, Supplementary material
 figureS3(); % Fig S3: irregular sphere packing 16 filters
