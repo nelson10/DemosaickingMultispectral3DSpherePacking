@@ -26,8 +26,11 @@ for i=1:8
     [G] = codedPatterns(N,NF,code);
     [textcode] =checkCode2(code);
     G = G(1:NF,1:NF);
-    [T] = distance(G);
-    minimum = min(T(:));
+
+    [r,c,z] = find(G);
+    B = [r c z];
+    D = pdist(B);
+    [minimum] = min(D(:)); % minimal value between <v,v> for all v \in r
     radius = minimum/2;
     [density]= ComputeDensity(minimum,NF,G);
     density = round(density,2);
