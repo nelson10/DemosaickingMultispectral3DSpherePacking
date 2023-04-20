@@ -23,5 +23,7 @@ elseif(method == 9)
     Xrec = I_final;
 elseif(method == 10)
     %TRevSCI-net
+elseif(method == 11)
+    [Xrec] = GuidedFilter(J);
 end
 end
