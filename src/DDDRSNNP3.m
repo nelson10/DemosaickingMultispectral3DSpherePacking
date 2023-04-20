@@ -15,17 +15,13 @@ x = ones(1,NF)';
 y = (1:NF)';
 I = kron(x',y);
 J = kron(x,y');
-
+%nn = round(sqrt(NF));
 for i=1:M
     for j=i:M
         G = mod(I.*i + J.*j,NF)+1;
         t = length(unique(G(1:NF,1:NF)));
         if(t == NF)
-            G1 = G(1:NF,1:NF);
-            [r,c,z] = find(G1);
-            B = [r c z];
-            D = pdist(B);
-            [distance(i,j)]=min(D(:));
+            [distance(i,j)]=distan3(G,NF);
         else
         end
     end
