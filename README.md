@@ -21,7 +21,7 @@ git clone https://github.com/nelson10/DemosaickingMultispectral3DSpherePacking.g
 
 1. The datasets could be download from the following [link](https://www1.cs.columbia.edu/CAVE/databases/multispectral/)
 
-2. The files should be placed in the Dataset, Test, and Test1 folder of this repository.
+2. The files should be placed in the [Dataset](https://www.dropbox.com/scl/fo/py43gsxzw3en6lx7wsu49/h?dl=0&rlkey=y3mzo8shvh456cjarxkqyzvrn), [Test](https://www.dropbox.com/scl/fo/kzwc41r53vmqa1fptbo3u/h?dl=0&rlkey=t9jtfllaor5lge6154oarrl82), and [Test1](https://www.dropbox.com/scl/fo/ko38byee2w2ng1tw314vy/h?dl=0&rlkey=b10ywu3or7scc8pmmpg6jtpnc) folder of this repository.
 
 3. Run the MainFigures.m files, it computes the figures of the paper from figures 2 to 9. Moreover, 
 
