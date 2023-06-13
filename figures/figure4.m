@@ -26,7 +26,7 @@ N = 256;
 set(groot, 'defaultFigureUnits', 'centimeters', 'defaultFigurePosition', [0 0 100.86 30.8]);
 fontsize = 18;
 fig=figure(4);
-x = ["(a)                        ","(b)                        ","(c)                        ","(d)                        ","(e)                        ","(f)                        ","(g)                        ","(h)                        "];
+x = ["                (a)                                              ","                (b)                                              ","                (c)                                              ","                (d)                                              ","                (e)                                              ","                (f)                                              ","                (g)                                              ","                (h)                                              "];
 t = tiledlayout(2,4,'TileSpacing','Compact','Padding','Compact');
 for i=1:8
     code = i-1; % 2 Brauers, 4 Uniform
@@ -45,13 +45,14 @@ for i=1:8
     nexttile
     showSphere(G,radius,fontsize);
     title("d="+num2str(minimum)+" \rho="+num2str(density), 'FontSize', fontsize,'Fontname','Times');
-    xlabel([x(i)], 'FontSize', fontsize,'Fontname','Times');
+    xlabel(['X',x(i)], 'FontSize', fontsize,'Fontname','Times');
     ylabel('Y', 'FontSize', fontsize,'Fontname','Times');
     zlabel('\lambda', 'FontSize', fontsize,'Fontname','Times');
     axis equal;
     colormap jet;
     hold on
-    %view(40,35)
+    %view(-40,35)
+    view(-40,18)
     grid on;
     set(gca,'FontSize',fontsize,'Fontname','Times')
 end
