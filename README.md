@@ -2,13 +2,13 @@
 
 This repository contains the code to reproduce the results presented in the paper following paper:
 
-*N. Diaz, A. Alvarado, P. Meza, F. Guzman and E. Vera, "Multispectral Filter Array Design by Optimal Sphere Packing," in Transaction on Image Processing, 2023.
+*Nelson Diaz, Alejandro Alvarado, Pablo Meza, Felipe Guzman and Esteban Vera, "Multispectral Filter Array Design by Optimal Sphere Packing," in the  IEEE Transactions on Image Processing (T-IP), 2023.
 
 This repository aims to design the multispectral filter array (MSFA) using sphere packing approach. The reconstruction is performed using the captured compressive projection and exploiting the MSFA using interpolation method, demosaicking methods and deep learning methods.
 
 ## Usage
 
-This code was written using Matlab R2022a. It should be downloaded the DemosaickingMultispectral repository
+This code was written using Matlab R2022a. It should be downloaded the DemosaickingMultispectral3DSpherePacking repository
 1. Download this repository via git 
 ```
 git clone https://github.com/nelson10/DemosaickingMultispectral3DSpherePacking.git
