@@ -1,5 +1,5 @@
 %% This main reproduce all the figures in the following paper: Multispectral Filter Array Design by Optimal Sphere Packing
-% summited for publication in Transaction on Image Processing 
+% Accepted in IEEE Transactions on Image Processing (T-IP)
 % Authors: Nelson Diaz, Alejandro Alvarado, Pablo Meza, Felipe Guzman, Esteban Vera
 
 clear all;
