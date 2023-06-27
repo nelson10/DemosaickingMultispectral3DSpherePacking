@@ -2,7 +2,7 @@
 
 This repository contains the code to reproduce the results presented in the paper following paper:
 
-*Nelson Diaz, Alejandro Alvarado, Pablo Meza, Felipe Guzman and Esteban Vera, "Multispectral Filter Array Design by Optimal Sphere Packing," in the  IEEE Transactions on Image Processing (T-IP), 2023. [link](https://ieeexplore.ieee.org/document/10163979)
+*Nelson Diaz, Alejandro Alvarado, Pablo Meza, Felipe Guzman and Esteban Vera, "Multispectral Filter Array Design by Optimal Sphere Packing," in IEEE Transactions on Image Processing, 2023. [link](https://ieeexplore.ieee.org/document/10163979)
 
 This repository aims to design the multispectral filter array (MSFA) using sphere packing approach. The reconstruction is performed using the captured compressive projection and exploiting the MSFA using interpolation method, demosaicking methods and deep learning methods.
 
