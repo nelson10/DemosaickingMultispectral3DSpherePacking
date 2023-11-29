@@ -10,18 +10,19 @@
 
 function [a,b,ma,G1]=DDDRSNNP3(N,NF)
 M = round(NF/2);
-distance = zeros(M,M);
+distance = zeros(NF,NF);
 x = ones(1,NF)';
 y = (1:NF)';
 I = kron(x',y);
 J = kron(x,y');
-%nn = round(sqrt(NF));
+
 for i=1:M
     for j=i:M
         G = mod(I.*i + J.*j,NF)+1;
-        t = length(unique(G(1:NF,1:NF)));
-        if(t == NF)
-            [distance(i,j)]=distan3(G,NF);
+        %t = length(unique(G(1:NF,1:NF)));
+        [flag] = VerifyRollingShutter(G,N);
+        if(flag )
+            [distance(i,j)]=distan(G,NF);
         else
         end
     end
