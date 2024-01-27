@@ -13,7 +13,7 @@ This code was written using Matlab R2022a. It should be downloaded the Demosaick
 ```
 git clone https://github.com/nelson10/DemosaickingMultispectral3DSpherePacking.git
 ```
-2. To run the code use the function main.m that performs the sensing, and the reconstruction using interpolation, demosaicking algorithms and deep learning.
+2. To run the code use the function MainFigures.m that performs the sensing, and the reconstruction using interpolation, demosaicking algorithms and deep learning.
 3. Or MainFigures.m that computes the coded aperture using sphere packing approach.
 
 
