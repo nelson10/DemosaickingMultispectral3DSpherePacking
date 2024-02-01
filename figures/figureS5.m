@@ -17,7 +17,7 @@ N = 512; % Spatial resolution
 NF = 16; % Number of filters
 FontSize= 18;
 name = {'RND','BN','BRA','SEQ','UNIF','IMEC','BTES','OSP'};
-letters={'a','b','c','d','e','a','g','b','i','j','k'};
+letters={'a','b','c','d','e','f','g','h','i','j','k'};
 fig=figure(13);
 t = tiledlayout(2,4,'TileSpacing','Compact','Padding','Compact');
 for i=1:8
@@ -34,6 +34,6 @@ for i=1:8
     nexttile
     imagesc(G(1:16,1:16));axis off; axis image; hold on; colormap jet
     plotG(G),title(textcode, 'FontSize', 14), axis off;
-    t = text(15+8.5,7-0.25,strcat('( ',letters(i),')'),'HorizontalAlignment', 'center','FontWeight','bold','FontSize',1.2*FontSize);
+    t = text(8.5,17.5-0.25,strcat('( ',letters(i),')'),'HorizontalAlignment', 'center','FontWeight','bold','FontSize',1.2*FontSize);
     pbaspect([1 1 1])
 end
