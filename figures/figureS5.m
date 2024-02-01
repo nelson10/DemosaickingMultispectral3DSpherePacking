@@ -32,7 +32,8 @@ for i=1:8
     density = round(density,2);
     minimum = round(minimum,2);
     nexttile
+    imagesc(G(1:16,1:16));axis off; axis image; hold on; colormap jet
     plotG(G),title(textcode, 'FontSize', 14), axis off;
-    t = text(8.5,-0.25,strcat('( ',letters(i),')'),'HorizontalAlignment', 'center','FontWeight','bold','FontSize',1.2*FontSize);
+    t = text(15+8.5,7-0.25,strcat('( ',letters(i),')'),'HorizontalAlignment', 'center','FontWeight','bold','FontSize',1.2*FontSize);
     pbaspect([1 1 1])
 end
