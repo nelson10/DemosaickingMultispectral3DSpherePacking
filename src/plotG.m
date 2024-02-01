@@ -8,7 +8,12 @@ ylim([0.49,B+1-0.49])
 Gt=G';
 for i= 1:B
     for j=1:B
-       t = text(i,1+B-j,num2str(Gt(i,j)),'HorizontalAlignment', 'center','FontSize',13);
+        if (Gt(i,j)<13 & Gt(i,j) >4)
+            col=[0,0,0];
+        else            
+            col=[0.99,0.99,0.99];
+        end
+       t = text(i,j,num2str(Gt(i,j)),'HorizontalAlignment', 'center','FontSize',13,'Color',col);
     end
 end
 for i = 1:17
